@@ -1,0 +1,155 @@
+{% extends "menu.html" %}
+
+{% block content %}
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+            <br>
+            <div class="row">
+
+                <div class="col-xl-12 col-sm-3">
+                    <div class="card bg-success">
+                        <div class="card-body widget-style-2">
+                            <div class="text-white media">
+                                <div class="media-body align-self-center" style="text-align: center;">
+                                    <p class="mb-0">Semaine du Talent 2025</p>
+                                    <h2 class="my-0 text-white"><span><em>"Mille et un talents, mille et une façons d’évangéliser."</em></span></h2>
+                                    <h5 class="my-0 mt-1 text-white">Du 24 au 31 Août 2025</h5>
+                                </div>                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card bg-dark">
+                        <div class="card-body widget-style-2">
+                            <div class="text-white media">
+                                <div class="media-body align-self-center">
+                                    <p class="mb-0">Participant(s) en solo</p>
+                                    <h2 class="my-0 text-white"><span>{{total_inscription_solo}}</span></h2>
+                                </div>
+                                <i class="ion-md-person"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card bg-dark">
+                        <div class="card-body widget-style-2">
+                            <div class="text-white media">
+                                <div class="media-body align-self-center">
+                                    <p class="mb-0">Groupe(s) Participant(s)</p>
+                                    <h2 class="my-0 text-white"><span>{{total_inscription_groupe}}</span></h2>
+                                </div>
+                                <i class="ion-md-people"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-sm-6">
+                    <div class="card bg-dark">
+                        <div class="card-body widget-style-2">
+                            <div class="text-white media">
+                                <div class="media-body align-self-center">
+                                    <p class="mb-0">Total des Participant(s)</p>
+                                    <h2 class="my-0 text-white"><span>{{total_participant}}</span></h2>
+                                </div>
+                                <i class="ion-md-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card col-xl-12 col-sm-3">
+                    <div class="card-body">
+                        <h4 class="header-title mb-6">Effectifs par catégorie</h4>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0" style="color: black; text-align: center;">
+                                <thead style="background-color: rgb(221, 217, 217);">
+                                    <tr>
+                                        <th>CATEGORIES</th>
+                                        <th>EFFECTIFS</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>Epelle-Moi!</th>
+                                        <td>
+                                            {{total_epm}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Question pour un Champion</th>
+                                        <td>
+                                            {{total_qpc}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Miss & Mister</th>
+                                        <td>
+                                            {{total_mm}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Dessin</th>
+                                        <td>
+                                            {{total_dessin}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Couture</th>
+                                        <td>
+                                            {{total_couture}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Cuisine</th>
+                                        <td>
+                                            {{total_cuisine}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Art Oratoire</th>
+                                        <td>
+                                            {{total_ao}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>A Capella</th>
+                                        <td>
+                                            {{total_ac}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Danse</th>
+                                        <td>
+                                            {{total_danse}}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>Théâtre</th>
+                                        <td>
+                                            {{total_th}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

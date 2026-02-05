@@ -1,0 +1,189 @@
+{% extends "menu.html" %}
+
+{% block content %}
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            {% if messages %}
+                <div class="alert-container">
+                    {% for message in messages %}
+                        <div class="alert alert-fill alert-info" role="alert">
+                            <h4 class="alert-title">EM Dodji | ST2025</h4>
+                            <div class="alert-message"><i class="ion ion-ios-alert"></i> {{ message }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="m-t-0 header-title"><b>LISTE DES INSCRIPTIONS</b></h4>        
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                       
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item">
+                                            <a href="#solo" data-toggle="tab" aria-expanded="true" class="nav-link active">
+                                                <span class="d-block d-sm-none"><i class="mdi mdi-account-outline font-18"></i></span>
+                                                <span class="d-none d-sm-block">Solo</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#groupe" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                                <span class="d-block d-sm-none"><i class="mdi mdi-account-multiple-outline font-18"></i></span>
+                                                <span class="d-none d-sm-block">En groupe</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="solo">
+                                            <table  class="table table-bordered dt-responsive nowrap" style="color: black; border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>N°</th>
+                                                        <th>Nom & Prénoms</th>
+                                                        <th>Age</th>
+                                                        <th>Groupe d'appartenance</th>
+                                                        <th>Catégorie</th>
+                                                        <th>Contact</th>
+                                                        <th>Statut</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                
+                                                <tbody>
+                                                    {% for s in solo %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ s.nom_prenom }}</td>
+                                                        <td>{{ s.age }}</td>
+                                                        <td>{{ s.groupe }}</td>
+                                                        <td>{{ s.categorie }}</td>
+                                                        <td>{{ s.contact }}</td>
+                                                        <td>
+                                                            {% if s.statut == "en_attente" %}
+                                                                <span class="badge" style="background-color: orange; padding: 5%;">En attente</span>
+                                                            {% endif %}
+                                                            {% if s.statut == "rejete" %}
+                                                                <span class="badge" style="background-color: red; padding: 5%;">Rejeté</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            
+                                                            <form action="{% url 'accepter_inscription_solo' s.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="ion ion-md-checkmark-circle"></i> Valider
+                                                                </button>
+                                                            </form>
+                                                            
+                                                            <form action="{% url 'rejeter_inscription_solo' s.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button class="btn btn-danger" type="submit">
+                                                                    <i class="ion ion-md-close"></i> Rejeter
+                                                                </button>
+                                                            </form>                                         
+                                                
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="8" style="text-align: center; color: red; font-style: italic;">Aucune inscription en attente
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+
+                                        <div class="tab-pane" id="groupe">
+                                            <table  class="table table-bordered dt-responsive nowrap" style="color: black; border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>N°</th>
+                                                        <th>Capitaine</th>
+                                                        <th>Nom de l'équipe</th>
+                                                        <th>Effectif</th>
+                                                        <th>Catégorie de compétition</th>
+                                                        <th>Contact</th>
+                                                        <th>Statut</th>                                        
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                
+                                                <tbody>
+                                                    {% for g in groupe %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ g.capitaine }}</td>
+                                                        <td>{{ g.nom_equipe }}</td>
+                                                        <td>{{ g.effectif }}</td>
+                                                        <td>{{ g.categorie }}</td>
+                                                        <td>{{ g.contact }}</td>
+                                                        <td>
+                                                            {% if g.statut == "en_attente" %}
+                                                                <span class="badge" style="background-color: orange; padding: 5%;">En attente</span>
+                                                            {% endif %}
+                                                            {% if s.statut == "rejete" %}
+                                                                <span class="badge" style="background-color: red; padding: 5%;">Rejeté</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            
+                                                            <form action="{% url 'accepter_inscription_groupe' g.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-success">
+                                                                    <i class="ion ion-md-checkmark-circle"></i> Valider
+                                                                </button>
+                                                            </form>                                                               
+                                                          
+                                                            <form action="{% url 'rejeter_inscription_groupe' g.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button class="btn btn-danger" type="submit">
+                                                                    <i class="ion ion-md-close"></i> Rejeter
+                                                                </button>
+                                                            </form>   
+                                                
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="8" style="text-align: center; color: red; font-style: italic;">Aucune inscription en attente
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

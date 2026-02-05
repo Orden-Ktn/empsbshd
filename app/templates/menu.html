@@ -1,0 +1,424 @@
+{% load custom_filters %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>EM Dodji | ST2025</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="Responsive bootstrap 4 admin template" name="description">
+    <meta content="Coderthemes" name="author">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="/static/images/favicon/LOGO_EM.jpg">
+
+    <!-- Plugins css-->
+    <link href="/static/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css">
+
+    <link href="/static/libs/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/libs/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/libs/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/libs/datatables/select.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
+    <!-- App css -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
+    <link href="/static/css/icons.min.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
+    <style>
+        .current-time-display,
+        .current-date-display {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+
+        .current-date-display {
+            color: #28a745;
+            /* Couleur verte pour la date */
+        }
+
+        body {
+            background-color: rgba(234, 231, 231, 0.837);
+        }
+
+        .liste_menu {
+            color: white;
+        }
+
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgb(53, 53, 53);
+            opacity: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #007bff;
+            /* Couleur du cercle */
+            border-top: 5px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            /* Ajout de l'animation */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading {
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+
+        .alert-container {
+            position: fixed;
+            /* Position fixe pour rester en haut de la page */
+            margin: auto;
+            top: 20px;
+            /* Marge du haut */
+            left: 50%;
+            /* Centrer horizontalement */
+            transform: translateX(-50%);
+            /* Ajuster le centrage */
+            width: 80%;
+            /* Largeur de l'alerte (ajustez selon vos besoins) */
+            max-width: 500px;
+            /* Largeur maximale */
+            z-index: 1000;
+            /* Assurez-vous qu'il est au-dessus des autres éléments */
+        }
+
+        .alert {
+            background-color: #e0f7fa;
+            /* Couleur de fond claire */
+            border: 1px solid #b2ebf2;
+            /* Bordure légère */
+            border-radius: 5px;
+            /* Coins arrondis */
+            padding: 20px;
+            /* Espacement intérieur */
+            text-align: center;
+            /* Centrer le texte */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            /* Ombre légère */
+        }
+
+        .alert-title {
+            color: #00838f;
+            /* Couleur du titre */
+            margin-bottom: 10px;
+            /* Marge sous le titre */
+        }
+
+        .alert-message {
+            color: #263238;
+            /* Couleur du message */
+            font-size: 16px;
+            /* Taille de la police */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="wrapper">
+        <div class="navbar-custom">
+            <ul class="list-unstyled topnav-menu float-right mb-0">
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle  waves-effect" data-toggle="dropdown" href="#" role="button"
+                        aria-haspopup="false" aria-expanded="false">
+                        <!-- <i class="ion ion-md-calendar noti-icon"></i>
+                        <span id="current-date" class="current-date-display"></span> -->
+
+                        <!-- <i class="ion ion-md-alarm noti-icon"></i> -->
+                        <span id="current-time" class="current-time-display"></span>
+                    </a>
+                </li>
+                <li class="dropdown notification-list">
+                    <a class="nav-link dropdown-toggle nav-user mr-0 waves-effect" data-toggle="dropdown" href="#"
+                        role="button" aria-haspopup="false" aria-expanded="false">
+                        <img src="/static/images/LOGO_EM.jpg" alt="user-image" class="rounded-circle">
+                        <span class="pro-user-name ml-1">
+                            EM Dodji <i class="mdi mdi-chevron-down"></i>
+                        </span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                        <button style="color: red;" data-toggle="modal" data-target=".deconnexion"
+                            class="dropdown-item notify-item">
+                            <i class="mdi mdi-logout-variant"></i>
+                            <span>Se déconnecter</span>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="logo-box">
+                <a class="logo text-center logo-dark">
+                    <span class="logo-lg">
+                        <img src="/static/images/logo.png" alt="" height="70">
+                      
+                    </span>
+                    <span class="logo-sm">
+                       
+                        <img src="/static/images/logo.png" alt="" height="22">
+                    </span>
+                </a>
+
+                <a class="logo text-center logo-light">
+                    <span class="logo-lg">
+                        <img style="border-radius: 50%; margin-top: 2.5%;" src="/static/images/logo.png" alt=""
+                            height="70">
+                        <!-- <span id="current-date" class="current-date-display"></span>  -->
+                    </span>
+                    <span class="logo-sm">
+                        <!-- <span class="logo-lg-text-dark">V</span> -->
+                        <img src="/static/images/logo.png" alt="" height="22">
+                    </span>
+                </a>
+            </div>
+
+            <!-- LOGO -->
+
+
+            <ul class="list-unstyled topnav-menu topnav-menu-left m-0">
+                <li>
+                    <button class="button-menu-mobile waves-effect">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <!-- end Topbar --> <!-- ========== Left Sidebar Start ========== -->
+        <div class="left-side-menu">
+
+            <div class="slimscroll-menu">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+
+                    <ul class="metismenu" id="side-menu">
+
+                        <li>
+                            <a href="{% url 'dashboard' %}" class="waves-effect">
+                                <i class="ion-md-speedometer"></i>
+                                <span class="liste_menu"> Tableau de board </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'liste_participant_solo' %}" class="waves-effect">
+                                <i class="mdi mdi-account-outline"></i>
+                                <span class="liste_menu"> Participants en solo </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'liste_participant_groupe' %}" class="waves-effect">
+                                <i class="ion-ios-contacts"></i>
+                                <span class="liste_menu"> Groupes Participants </span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{% url 'liste_inscriptions' %}" class="waves-effect">
+                                <i class="ion ion-md-paper"></i>
+                                <span class="liste_menu"> Inscriptions reçues </span>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </div>
+                <!-- End Sidebar -->
+
+                <div class="clearfix"></div>
+
+            </div>
+            <!-- Sidebar -left -->
+
+        </div>
+        <!-- Left Sidebar End -->
+
+        {% block content %}
+
+        {% endblock %}
+
+
+        <div class="modal fade deconnexion" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+            style="display: none;" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Confirmation de déconnexion</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+                    </div>
+                    <div class="modal-footer" style="text-align: center; margin: auto;">
+                        <a href="{% url 'deconnexion' %}" class="btn btn-primary">
+                            Oui
+                        </a>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Non</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+
+
+        {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert alert-fill alert-info" role="alert">
+                <h4 class="alert-title">EM Dodji | ST2025</h4>
+                <div class="alert-message"><i class="ion ion-ios-alert"></i> {{ message }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Footer Start -->
+        <footer class="footer" style="background-color: white;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        2025 &copy; EM Dodji<em></em>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- end Footer -->
+
+        <!-- Vendor js -->
+        <script src="/static/js/vendor.min.js"></script>
+
+        <script src="/static/libs/moment/moment.min.js"></script>
+        <script src="/static/libs/jquery-scrollto/jquery.scrollTo.min.js"></script>
+        <script src="/static/libs/sweetalert2/sweetalert2.min.js"></script>
+
+        <!-- Chat app -->
+        <script src="/static/js/pages/jquery.chat.js"></script>
+
+        <!-- Todo app -->
+        <script src="/static/js/pages/jquery.todo.js"></script>
+
+        <!--Morris Chart-->
+        <script src="/static/libs/morris-js/morris.min.js"></script>
+        <script src="/static/libs/raphael/raphael.min.js"></script>
+
+        <!-- jquery.easypiechart -->
+        <script src="/static/libs/easy-pie-chart/jquery.easypiechart.min.js"></script>
+
+        <!-- Sparkline charts -->
+        <script src="/static/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+        <!-- KNOB JS -->
+        <script src="/static/libs/jquery-knob/jquery.knob.min.js"></script>
+
+        <!-- flot chart -->
+        <script src="/static/libs/flot-charts/jquery.flot.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.time.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.tooltip.min.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.resize.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.pie.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.selection.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.stack.js"></script>
+        <script src="/static/libs/flot-charts/jquery.flot.crosshair.js"></script>
+
+        <!-- init js -->
+        <script src="/static/js/pages/flot.init.js"></script>
+
+        <!-- init js -->
+        <script src="/static/js/pages/easy-pie-chart.init.js"></script>
+        <script src="/static/js/pages/sparkline.init.js"></script>
+
+        <!-- Dashboard init JS -->
+        <script src="/static/js/pages/dashboard.init.js"></script>
+
+        <!-- App js -->
+        <script src="/static/js/app.min.js"></script>
+
+        <!-- Required datatable js -->
+        <script src="/static/libs/datatables/jquery.dataTables.min.js"></script>
+        <script src="/static/libs/datatables/dataTables.bootstrap4.min.js"></script>
+        <!-- Buttons examples -->
+        <script src="/static/libs/datatables/dataTables.buttons.min.js"></script>
+        <script src="/static/libs/datatables/buttons.bootstrap4.min.js"></script>
+        <script src="/static/libs/jszip/jszip.min.js"></script>
+        <script src="/static/libs/pdfmake/pdfmake.min.js"></script>
+        <script src="/static/libs/pdfmake/vfs_fonts.js"></script>
+        <script src="/static/libs/datatables/buttons.html5.min.js"></script>
+        <script src="/static/libs/datatables/buttons.print.min.js"></script>
+
+        <!-- Responsive examples -->
+        <script src="/static/libs/datatables/dataTables.responsive.min.js"></script>
+        <script src="/static/libs/datatables/responsive.bootstrap4.min.js"></script>
+
+        <script src="/static/libs/datatables/dataTables.keyTable.min.js"></script>
+        <script src="/static/libs/datatables/dataTables.select.min.js"></script>
+
+        <!-- Datatables init -->
+        <script src="/static/js/pages/datatables.init.js"></script>
+
+        <script>
+            setTimeout(function () {
+                let alerts = document.querySelectorAll('.alert-fill'); // Sélectionne les alertes par leur classe
+                alerts.forEach(function (alert) {
+                    alert.style.display = 'none';
+                });
+            }, 5000); // 5000 millisecondes = 5 secondes
+
+            function goBack() {
+                window.history.back();
+            }
+
+            function updateTime() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString();
+                document.getElementById('current-time').textContent = timeString;
+            }
+
+            function updateDate() {
+                const now = new Date();
+                const dateString = now.toLocaleDateString();
+                document.getElementById('current-date').textContent = dateString;
+            }
+
+            // Mettre à jour l'heure et la date toutes les secondes
+            setInterval(() => {
+                updateTime();
+                updateDate();
+            }, 1000);
+
+            // Mettre à jour l'heure et la date immédiatement au chargement de la page
+            updateTime();
+            updateDate();
+        </script>
+
+    </div>
+</body>
+
+</html>

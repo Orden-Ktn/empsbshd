@@ -1,0 +1,113 @@
+{% extends "menu.html" %}
+
+{% block content %}
+
+<div class="content-page">
+    <div class="content">
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+            <!-- start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box">
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- end page title -->
+            {% if messages %}
+                <div class="alert-container">
+                    {% for message in messages %}
+                        <div class="alert alert-fill alert-info" role="alert">
+                            <h4 class="alert-title">EM Dodji | ST2025</h4>
+                            <div class="alert-message"><i class="ion ion-ios-alert"></i> {{ message }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="row">
+                <div class="col-12">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="header-title mb-4">Rechercher les participants par catégorie</h4>
+
+                                    <form action="" method="POST" class="space-y-4">
+                                        {% csrf_token %}
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                                <select id="inputState" name="categorie" class="form-control">
+                                                    <option>Sélectionner la catégorie</option>
+                                                    <option value="A Capella">A Capella</option>
+                                                    <option value="Epelle-Moi!">Epelle-Moi!</option>
+                                                    <option value="Dessin">Dessin</option>
+                                                    <option value="Question Pour un Champion">Question Pour un Champion</option>
+                                                    <option value="Miss & Mister">Miss & Mister</option>
+                                                    <option value="Couture">Couture</option>
+                                                    <option value="Cuisine">Cuisine</option>
+                                                    <option value="Art Oratoire">Art Oratoire</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <button type="submit" class="btn" style="background-color: limegreen;">Rechercher</button>
+                                            </div>
+                                        </div>
+                                                                          
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body table-responsive">
+                            
+                            <div class="row">
+                                <div class="col-xl-12">                                   
+                                    <table id="datatable" class="table table-bordered dt-responsive nowrap" style="color: black; border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                        <thead>
+                                            <tr>
+                                                <th>N°</th>
+                                                <th>Nom & Prénoms</th>
+                                                <th>Age</th>
+                                                <th>Groupe d'appartenance</th>
+                                                <th>Catégorie de compétition</th>
+                                                <th>Contact</th>
+                                             </tr>
+                                        </thead>
+        
+                                        <tbody>
+                                            {% for s in solo %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ s.nom_prenom }}</td>
+                                                <td>{{ s.age }}</td>
+                                                <td>{{ s.groupe }}</td>
+                                                <td>{{ s.categorie }}</td>
+                                                <td>{{ s.contact }}</td>
+                                            </tr>
+                                            {% empty %}
+                                            <tr>
+                                                <td colspan="6" style="text-align: center; color: red; font-style: italic;">Aucun enregistrement pour cette catégorie
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        
+                                    </table>
+                                </div>
+                            </div>
+                                                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

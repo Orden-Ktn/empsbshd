@@ -1,0 +1,1069 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine du Talent 2026 - EM DODJI</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5B21B6',
+                        secondary: '#EC4899',
+                        accent: '#F59E0B',
+                        cream: '#FEF3E2'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        accent: ['Pacifico', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="/static/images/favicon/LOGO_EM.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .animate-fade-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+
+        /* Alert Styling */
+        .alert-container {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 500px;
+            z-index: 1000;
+            animation: slideInDown 0.5s ease-out;
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -20px);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, 0);
+            }
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 24px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .alert-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .alert-message {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        /* Hero Section */
+        .hero-bg {
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: scroll;
+            transition: background-image 1.5s ease-in-out;
+            min-height: 100vh;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.92) 0%, 
+                rgba(254, 243, 226, 0.85) 40%,
+                rgba(255, 255, 255, 0.6) 70%,
+                rgba(91, 33, 182, 0.05) 100%);
+        }
+        
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-size: cover;
+                background-position: center center;
+                min-height: auto;
+            }
+            
+            .hero-overlay {
+                background: linear-gradient(135deg, 
+                    rgba(255, 255, 255, 0.88) 0%, 
+                    rgba(254, 243, 226, 0.82) 50%,
+                    rgba(255, 255, 255, 0.75) 100%);
+            }
+        }
+
+        .logo-container {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .logo-ring {
+            position: relative;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 10px 40px rgba(91, 33, 182, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .logo-ring:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 60px rgba(91, 33, 182, 0.3);
+        }
+
+        .theme-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(254, 243, 226, 0.8));
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(91, 33, 182, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .theme-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(91, 33, 182, 0.15);
+            border-color: rgba(91, 33, 182, 0.3);
+        }
+
+        .date-badge {
+            background: linear-gradient(135deg, #10b981, #059669);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        /* Section Title */
+        .section-title {
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            height: 4px;
+            background: linear-gradient(90deg, #5B21B6, #EC4899);
+            border-radius: 2px;
+        }
+
+        .section-title::before {
+            left: 0;
+            width: 60px;
+        }
+
+        .section-title::after {
+            left: 70px;
+            width: 30px;
+            opacity: 0.5;
+        }
+
+        /* Category Cards */
+        .category-card {
+            position: relative;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #5B21B6, #EC4899);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            border-color: #5B21B6;
+            box-shadow: 0 20px 60px rgba(91, 33, 182, 0.2);
+        }
+
+        .category-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .icon-container {
+            position: relative;
+            background: linear-gradient(135deg, #f3e7ff, #fce7f3);
+            transition: all 0.4s ease;
+        }
+
+        .category-card:hover .icon-container {
+            background: linear-gradient(135deg, #5B21B6, #EC4899);
+        }
+
+        .category-card:hover .icon-container i {
+            color: white;
+        }
+
+        /* Inscription Cards */
+        .inscription-card {
+            background: white;
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(91, 33, 182, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .inscription-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #5B21B6, #EC4899);
+            transition: width 0.4s ease;
+        }
+
+        .inscription-card:hover::before {
+            width: 100%;
+        }
+
+        .inscription-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(91, 33, 182, 0.2);
+            border-color: rgba(91, 33, 182, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #5B21B6 0%, #7C3AED 50%, #EC4899 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, white, transparent);
+        }
+
+        .contact-btn {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .contact-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #5B21B6, #EC4899, transparent);
+        }
+
+        /* Scroll Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #5B21B6, #EC4899, #F59E0B);
+            z-index: 9999;
+            transition: width 0.2s ease;
+        }
+
+        /* Decorative Elements */
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(91, 33, 182, 0.1), transparent);
+            pointer-events: none;
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: linear-gradient(135deg, #5B21B6, #7C3AED);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(91, 33, 182, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(91, 33, 182, 0.4);
+            background: linear-gradient(135deg, #6D28D9, #8B5CF6);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Alert Messages -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert">
+                <h4 class="alert-title">✨ Semaine du Talent</h4>
+                <div class="alert-message">{{ message }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero-bg relative overflow-hidden"
+        data-images='[
+            "/static/images/IMG-20240826-WA0021.jpg",
+            "/static/images/IMG-20250830-WA0084.jpg",
+            "/static/images/IMG_2714.jpg"
+        ]'>
+
+        <!-- Decorative Elements -->
+        <div class="decorative-circle" style="width: 400px; height: 400px; top: -200px; right: -200px;"></div>
+        <div class="decorative-circle" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+        <!-- Overlay -->
+        <div class="hero-overlay absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 py-24 md:py-36 lg:py-44 relative">
+            <div class="max-w-4xl">
+
+                <!-- Logos -->
+                <div class="mb-12 flex flex-wrap items-center gap-6 md:gap-8">
+                    <div class="logo-container animate-scale-in delay-100">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/sainte_bernadette.png' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Sainte Bernadette">
+                        </div>
+                    </div>
+
+                    <div class="logo-container animate-scale-in delay-200">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/LOGO_EM.jpg' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Logo EM">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Titles -->
+                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 animate-fade-up delay-300 leading-tight">
+                    Semaine du Talent<br>
+                    <span class="text-primary">2026</span>
+                </h1>
+
+                <!-- Date Badge -->
+                <div class="date-badge inline-block text-white px-6 py-4 rounded-2xl text-lg font-semibold mb-8 shadow-xl animate-fade-up delay-400">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="ri-calendar-event-fill text-2xl"></i>
+                        <span>Du 24 au 30 Août 2026</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="ri-map-pin-2-fill text-2xl"></i>
+                        <span>Espace devant le Presbytère</span>
+                    </div>
+                </div>
+
+                <!-- Theme Card -->
+                <div class="theme-card rounded-3xl p-8 md:p-10 shadow-xl animate-fade-up delay-500">
+                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-display">
+                        <span class="font-semibold text-primary text-xl md:text-2xl block mb-4">
+                            Thème
+                        </span>
+                        <em class="block mt-3 text-gray-700 italic text-2xl md:text-3xl">
+                            « Diversité des talents, proximité des cœurs. »
+                        </em>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Catégories de Compétition
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    Découvrez les dix catégories dans lesquelles vous pouvez concourir lors de la Semaine du Talent 2026.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+                
+                <!-- A Capella -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-mic-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">A Capella</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Chantez sans instruments et laissez briller votre voix à travers des harmonies uniques et créatives.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Danse -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-run-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Danse</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            De la danse classique au hip-hop, exprimez-vous par le mouvement et l'énergie scénique.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Théâtre -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-live-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Théâtre</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Mettez en scène vos talents d'acteur dans des pièces originales, drames ou comédies.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dessin -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-brush-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Dessin</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Montrez vos œuvres graphiques : portraits, caricatures, paysages ou créations abstraites.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Question Pour un Champion -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-question-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Question Pour un Champion</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Testez votre culture générale dans un quiz palpitant digne des plus grandes émissions.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Art Oratoire -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-megaphone-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Art Oratoire</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Maîtrisez l'éloquence à travers des discours puissants, slams ou débats passionnés.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Epelle-Moi! -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-clapperboard-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Epelle-Moi!</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Maîtrisez l'orthographe dans ce concours de diction et de lettres à haute tension.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Miss & Mister -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-user-star-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Miss & Mister</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Élégance, prestance et personnalité : défendez votre style sur scène avec charisme.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Couture -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-scissors-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Couture</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Présentez vos créations textiles : mode, accessoires ou tenues traditionnelles faites main.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Cuisine -->
+                <div class="category-card">
+                    <div class="icon-container h-48 flex items-center justify-center">
+                        <i class="ri-restaurant-line text-6xl text-primary transition-colors"></i>
+                    </div>
+                    <div class="p-6 text-center relative z-10">
+                        <h3 class="text-xl font-bold mb-3 text-gray-900">Cuisine</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            Éveillez les papilles avec vos recettes originales, sucrées ou salées, d'ici ou d'ailleurs.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Inscription Section -->
+    <section id="inscription" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Inscrivez-vous maintenant
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    Les inscriptions pour l'édition 2026 sont ouvertes et se poursuivent jusqu'au <em style="font-weight: bold;">10 août 2026</em> ! Choisissez votre mode de participation et rejoignez l'aventure.
+                </p>
+            </div>
+
+            <div class="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
+                
+                <!-- Solo Card -->
+                <div class="flex-1 inscription-card p-10">
+                    <div class="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-user-line text-5xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4 text-center font-display text-gray-900">Solo</h3>
+                    <p class="text-gray-600 mb-8 text-center leading-relaxed">
+                        Parfait pour les artistes individuels souhaitant montrer leur talent personnel dans l'une de nos catégories.
+                    </p>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Accès à toutes les catégories</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Coaching personnalisé</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-primary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Temps de passage garanti</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal('modal-solo')" type="button" data-toggle="modal" data-target=".solo"
+                        class="btn-primary w-full text-center">
+                        S'inscrire en Solo
+                    </button>
+                </div>
+
+                <!-- Groupe Card -->
+                <div class="flex-1 inscription-card p-10">
+                    <div class="w-24 h-24 bg-gradient-to-br from-secondary to-accent rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-team-line text-5xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4 text-center font-display text-gray-900">Groupe</h3>
+                    <p class="text-gray-600 mb-8 text-center leading-relaxed">
+                        Idéal pour les duos, trios et groupes plus nombreux souhaitant présenter un numéro collectif.
+                    </p>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-secondary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Jusqu'à 10 participants</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-secondary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Espace scénique adapté</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-secondary mt-1 mr-3"></i>
+                            <span class="text-gray-700">Support technique renforcé</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal('modal-groupe')" type="button" data-toggle="modal" data-target=".groupe"
+                        class="btn-primary w-full text-center">
+                        S'inscrire en Groupe
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section py-20">
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-white">Des Inquiétudes ?</h2>
+            <p class="text-xl md:text-xl mb-12 max-w-3xl mx-auto text-white/90">
+                Contactez par appel ou WhatsApp les membres de l'organisation pour plus de compréhension.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://wa.me/22956025774" target="_blank" class="contact-btn px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center gap-2">
+                    <i class="ri-whatsapp-line text-2xl"></i>/<i class="ri-phone-line text-2xl"></i>
+                    <span>+229 0156025774</span>
+                </a>
+                <a href="https://wa.me/22962992332" target="_blank" class="contact-btn px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center gap-2">
+                    <i class="ri-whatsapp-line text-2xl"></i>/<i class="ri-phone-line text-2xl"></i>
+                    <span>+229 0162992332</span>
+                </a>
+                <a href="https://wa.me/22940031887" target="_blank" class="contact-btn px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center gap-2">
+                    <i class="ri-whatsapp-line text-2xl"></i>/<i class="ri-phone-line text-2xl"></i>
+                    <span>+229 0140031887</span>
+                </a>
+                <a href="https://wa.me/22952819221" target="_blank" class="contact-btn px-8 py-4 rounded-full font-semibold text-lg inline-flex items-center gap-2">
+                    <i class="ri-whatsapp-line text-2xl"></i>/<i class="ri-phone-line text-2xl"></i>
+                    <span>+229 0152819221</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-1">
+        <div class="container mx-auto px-6 text-center">
+            {% comment %} <div class="mb-6">
+                <h3 class="font-display text-2xl font-bold mb-2">Semaine du Talent 2026</h3>
+                <p class="text-gray-400">Enfance Missionnaire Dodji</p>
+            </div> {% endcomment %}
+            <div class="border-t border-gray-800 pt-2">
+                <p class="text-gray-500">© 2026 Enfance Missionnaire Dodji. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals for Registration -->
+    <div id="modal-solo" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b bg-gradient-to-r from-primary to-secondary text-white">
+                <h3 class="text-xl font-semibold flex items-center gap-2">
+                    <i class="ri-user-line text-2xl"></i> Inscription Solo
+                </h3>
+                <button onclick="closeModal('modal-solo')" class="text-2xl hover:opacity-80">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <form action="{% url 'inscription_solo' %}" method="POST"
+                class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                {% csrf_token %}
+
+                <!-- Nom -->
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nom & Prénoms</label>
+                    <input type="text" name="nom_prenom" required
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div>
+
+                <!-- Grille -->
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Âge</label>
+                        <input type="number" name="age" min="5" max="25" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Contact</label>
+                        <input type="text" name="contact" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Groupe d'appartenance</label>
+                    <select name="groupe" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <option value="">Sélectionner</option>
+                        <option>Samuel</option>
+                        <option>MADEB</option>
+                        <option>Légion de Marie</option>
+                        <option>Maman Chérie</option>
+                        <option>Lecteurs Juniors</option>
+                        <option>Chorale des Enfants</option>
+                        <option>Scout</option>
+                        <option>Autre</option>
+                        <option>Aucun</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Catégorie</label>
+                    <select id="categorie" name="categorie" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <option value="">Sélectionner</option>
+                        <option>A Capella</option>
+                        <option>Miss & Mister</option>
+                        <option>Dessin</option>
+                        <option>Question Pour un Champion</option>
+                        <option>Art Oratoire</option>
+                        <option>Epelle-Moi!</option>
+                        <option>Couture</option>
+                        <option>Cuisine</option>
+                        {% comment %} <option>Autre</option> {% endcomment %}
+                    </select>
+                </div>
+
+                {% comment %} <div id="autre-categorie-container" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700">Autre catégorie</label>
+                    <input type="text" name="autre_categorie"
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div> {% endcomment %}
+
+                <!-- Footer -->
+                <div class="pt-4">
+                    <button type="submit"
+                            class="w-full py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+                        Envoyer l'inscription
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="modal-groupe" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b bg-gradient-to-r from-secondary to-accent text-white">
+                <h3 class="text-xl font-semibold flex items-center gap-2">
+                    <i class="ri-team-line text-2xl"></i> Inscription Groupe
+                </h3>
+                <button onclick="closeModal('modal-groupe')" class="text-2xl">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <form action="{% url 'inscription_groupe' %}" method="POST"
+                class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Capitaine</label>
+                    <input type="text" name="capitaine" required
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Nom de l'équipe</label>
+                        <input type="text" name="nom_equipe" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Effectif</label>
+                        <input type="number" name="effectif" min="2" max="10" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Contact</label>
+                    <input type="text" name="contact" required
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Catégorie</label>
+                    <select id="categorie_groupe" name="categorie" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <option value="">Sélectionner</option>
+                        <option>Danse</option>
+                        <option>Théâtre</option>
+                        {% comment %} <option>Autre</option> {% endcomment %}
+                    </select>
+                </div>
+
+                {% comment %} <div id="autre-categorie-groupe-container" class="hidden">
+                    <label class="block text-sm font-medium text-gray-700">Autre catégorie</label>
+                    <input type="text" name="autre_categorie"
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div> {% endcomment %}
+
+                <div class="pt-4">
+                    <button type="submit"
+                            class="w-full py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+                        Envoyer l'inscription
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/js/vendor.min.js"></script>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+    </script>
+
+    <script>
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Hero Background Slider
+        const hero = document.getElementById("accueil");
+        const images = JSON.parse(hero.dataset.images);
+        let current = 0;
+
+        function loadHeroImage(index) {
+            const img = new Image();
+            img.onload = function() {
+                hero.style.backgroundImage = `url('${images[index]}')`;
+            };
+            img.src = images[index];
+        }
+
+        loadHeroImage(0);
+
+        setInterval(() => {
+            current = (current + 1) % images.length;
+            loadHeroImage(current);
+        }, 6000);
+
+        // Intersection Observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.category-card, .inscription-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+
+    <script>
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert-fill');
+            alerts.forEach(function(alert) {
+                alert.style.display = 'none';
+            });
+        }, 5000);
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Gallery modal functionality
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeBtn = document.getElementsByClassName('close')[0];
+            const galleryImages = document.querySelectorAll('.gallery-image img');
+            
+            galleryImages.forEach(img => {
+                img.addEventListener('click', function () {
+                    modal.style.display = 'flex';
+                    modalImg.src = this.src;
+                });
+            });
+            
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function () {
+                    modal.style.display = 'none';
+                });
+            }
+            
+            window.addEventListener('click', function (event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Date limite d'inscription (11 août 2026 à 00h00)
+        const dateLimite = new Date('2026-08-11T00:00:00');
+        const maintenant = new Date();
+
+        if (maintenant >= dateLimite) {
+            // Désactiver tous les boutons d'inscription
+            document.querySelectorAll('button[data-toggle="modal"]').forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+                btn.textContent = "Inscriptions clôturées";
+                btn.removeAttribute('data-toggle');
+                btn.removeAttribute('data-target');
+            });
+        }
+    </script>
+
+    <script>
+        const selectCategorie = document.getElementById('categorie');
+        const autreCategorieContainer = document.getElementById('autre-categorie-container');
+        const autreCategorieInput = document.getElementById('autre_categorie');
+
+        if (selectCategorie) {
+            selectCategorie.addEventListener('change', function () {
+                if (this.value === 'Autre') {
+                    autreCategorieContainer.classList.remove('hidden');
+                    autreCategorieInput.setAttribute('required', 'required');
+                } else {
+                    autreCategorieContainer.classList.add('hidden');
+                    autreCategorieInput.removeAttribute('required');
+                    autreCategorieInput.value = '';
+                }
+            });
+        }
+    </script>
+
+    <script>
+        const selectCategorieGroupe = document.getElementById('categorie_groupe');
+        const autreCategorieGroupeContainer = document.getElementById('autre-categorie-groupe-container');
+        const autreCategorieGroupeInput = document.getElementById('autre_categorie_groupe');
+
+        if (selectCategorieGroupe) {
+            selectCategorieGroupe.addEventListener('change', function () {
+                if (this.value === 'Autre') {
+                    autreCategorieGroupeContainer.classList.remove('hidden');
+                    autreCategorieGroupeInput.setAttribute('required', 'required');
+                } else {
+                    autreCategorieGroupeContainer.classList.add('hidden');
+                    autreCategorieGroupeInput.removeAttribute('required');
+                    autreCategorieGroupeInput.value = '';
+                }
+            });
+        }
+    </script>
+
+</body>
+
+</html>

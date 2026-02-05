@@ -1,0 +1,656 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EM DODJI</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5B21B6',
+                        secondary: '#EC4899',
+                        accent: '#F59E0B',
+                        cream: '#FEF3E2'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        accent: ['Pacifico', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="shortcut icon" href="/static/images/favicon/LOGO_EM.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Alert Messages -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert">
+                <h4 class="alert-title">✨ EM Dodji</h4>
+                <div class="alert-message">{{ message }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero-bg relative overflow-hidden"
+        data-images='[
+            "/static/images/IMG-20240826-WA0021.jpg",
+            "/static/images/IMG_20251228_180131.jpg",
+            "/static/images/IMG-20250830-WA0084.jpg",
+            "/static/images/IMG_20251228_150838.jpg",
+            "/static/images/IMG_2714.jpg"
+        ]'>
+
+        <!-- Decorative Elements -->
+        <div class="decorative-circle" style="width: 400px; height: 400px; top: -200px; right: -200px;"></div>
+        <div class="decorative-circle" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+        <!-- Overlay -->
+        <div class="hero-overlay absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 py-24 md:py-36 lg:py-44 relative">
+            <div class="max-w-4xl">
+
+                <!-- Logos -->
+                <div class="mb-12 flex flex-wrap items-center gap-6 md:gap-8">
+                    <div class="logo-container animate-scale-in delay-100">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/sainte_bernadette.png' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Sainte Bernadette">
+                        </div>
+                    </div>
+
+                    <div class="logo-container animate-scale-in delay-200">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/LOGO_EM.jpg' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Logo EM">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Titles -->
+                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4 animate-fade-up delay-300 leading-tight">
+                    Paroisse Sainte Bernadette<br>
+                    <span class="text-primary">de Hêvié Dodji</span>
+                </h1>
+
+                <h2 class="font-display text-2xl md:text-3xl lg:text-4xl font-semibold text-secondary mb-10 animate-fade-up delay-400">
+                    Coordination de l'Enfance Missionnaire
+                </h2>
+
+                <!-- Theme Card -->
+                <div class="theme-card rounded-3xl p-8 md:p-10 shadow-xl animate-fade-up delay-500">
+                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-display">
+                        <span class="font-semibold text-primary text-xl md:text-2xl block mb-4">
+                            Thème de l'année pastorale
+                        </span>
+                        <em class="block mt-3 text-gray-700 italic">
+                            « ENFANTS MISSIONNAIRES DE COTONOU, POUR L'AUTO-PRISE EN CHARGE DE TA
+                            MISSION, REMETS TON ACTION AU SEIGNEUR ET TES PROJETS RÉUSSIRONT »
+                        </em>
+                        <span class="block mt-4 text-base md:text-lg text-primary font-medium">
+                            — Proverbes 16, 3
+                        </span>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Qu'est-ce que l'Enfance Missionnaire -->
+    <section id="about-em" class="py-24 bg-gradient-to-br from-purple-50 via-pink-50 to-white relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="decorative-circle" style="width: 500px; height: 500px; top: -250px; left: -250px; opacity: 0.4;"></div>
+        <div class="decorative-circle" style="width: 350px; height: 350px; bottom: -175px; right: -175px; opacity: 0.3;"></div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Qu'est-ce que l'Enfance Missionnaire ?
+                </h2>
+            </div>
+
+            <div class="max-w-6xl mx-auto">
+                
+                <!-- Definition Card -->
+                <div class="bg-white rounded-3xl shadow-xl p-8 md:p-12 mb-8 border-2 border-primary/10 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
+                    <div class="flex items-start gap-6 mb-6">
+                       
+                        <div>
+                            <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 font-display">
+                                Une Œuvre Pontificale Missionnaire
+                            </h3>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                L'Enfance Missionnaire est une des <strong class="text-primary">Œuvres Pontificales Missionnaires (OPM)</strong> qui invitent à s'informer, prier et partager avec les catholiques pour le monde entier. 
+                            </p>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                Ces œuvres « pontificales » sont les œuvres du pape mais aussi de tous les évêques et de tout le peuple de Dieu.
+                            </p>
+                            <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                                L'Œuvre de l'Enfance Missionnaire, fondée par <strong class="text-secondary">Mgr Charles Auguste Marie de Forbin Jason en 1922</strong>, est une institution pontificale qui promeut l'évangélisation parmi les enfants.
+                            </p>
+                            
+                            <!-- Groups on Parish -->
+                            <div class="mt-8 p-6 bg-gradient-to-r from-primary/5 via-secondary/5 to-accent/5 rounded-2xl border-l-4 border-primary">
+                                <h4 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                                    <i class="ri-team-line text-primary"></i>
+                                    Sur notre paroisse
+                                </h4>
+                                <p class="text-lg text-gray-700 leading-relaxed mb-3">
+                                    L'Enfance Missionnaire est constituée des groupes/mouvements suivants:
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Lecteurs Juniors
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Maman Chérie
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Samuel
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Légion de Marie
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Chorale des Enfants
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        MADEB
+                                    </span>
+                                    <span class="px-4 py-2 bg-white rounded-full text-sm font-semibold text-primary border-2 border-primary/20 hover:border-primary/40 transition-all hover:shadow-md">
+                                        Scout
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Founder Card -->
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    
+                    <!-- Image/Icon Side -->
+                    <div class="order-2 md:order-1">
+                        <div class="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl p-8 md:p-12 text-center transform hover:scale-105 transition-all duration-500">
+                            <div class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/20 shadow-2xl">
+                                <img src="{% static 'images/NASCIMENTO.jpg' %}" alt="Père Florent NASCIMENTO" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                                Père Florent<br>NASCIMENTO
+                            </h4>
+                            <p class="text-lg text-primary font-semibold mb-2">
+                                Premier Aumônier Diocésain
+                            </p>
+                            <p class="text-gray-600 italic">
+                               Fondateur de l'Enfance Missionnaire dans l'Archidiocèse de Cotonou
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Text Side -->
+                    <div class="order-2 md:order-1">
+                        <div class="bg-gradient-to-br from-primary/10 to-secondary/10 rounded-3xl p-8 md:p-12 text-center transform hover:scale-105 transition-all duration-500">
+                            <div class="w-32 h-32 md:w-40 md:h-40 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/20 shadow-2xl">
+                                <img src="{% static 'images/sainte therese.jpg' %}" alt="Sainte Thérèse" class="w-full h-full object-cover">
+                            </div>
+                            <h4 class="font-display text-2xl md:text-3xl font-bold text-gray-900 mb-3">
+                                Sainte Thérèse<br>de l'Enfant Jésus
+                            </h4>
+                            <p class="text-lg text-primary font-semibold mb-2">
+                                Sainte Patronne de l'Enfance Missionnaire
+                            </p>
+                            <p class="text-gray-600 italic">
+                               "Je passerai mon ciel à faire du bien sur la terre. Je ferai tomber une pluie de roses."
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galerie" class="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Galerie des activités
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    Revivez les moments forts de nos dernières activités à travers cette sélection de photos capturant
+                    l'énergie, la créativité et la fraternité des enfants missionnaires.
+                </p>
+            </div>
+
+            <div class="relative overflow-hidden mb-6">
+                <div id="gallerySlider1" class="flex transition-transform duration-700 ease-in-out gap-2">
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/th.jpg" alt="Activité EM" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/cuisine1.jpg" alt="Activité cuisine" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/imgff.jpg" alt="Activité groupe" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_20250825_172716_624.jpg" alt="Rassemblement" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG-20250830-WA0018.jpg" alt="Célébration" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_7838.jpg" alt="Formation" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_3133.jpg" alt="Prière" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/th1.jpg" alt="Théâtre" class="w-full h-full">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden">
+                <div id="gallerySlider2" class="flex transition-transform duration-700 ease-in-out gap-2">
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_3005.jpg" alt="Activité EM" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_2714.jpg" alt="Activité cuisine" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG-20250830-WA0005.jpg" alt="Activité groupe" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/cuisine3.jpg" alt="Rassemblement" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/danse1.jpg" alt="Célébration" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG_2426.jpg" alt="Formation" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG-20250830-WA0122.jpg" alt="Prière" class="w-full h-full">
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-2">
+                        <div class="gallery-item h-80">
+                            <img src="/static/images/IMG-20250830-WA0075.jpg" alt="Théâtre" class="w-full h-full">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Activities Section -->
+    <section id="activites" class="py-24 bg-gradient-to-b from-gray-50 to-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Prochaines Activités
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    Découvrez les activités à venir de l'Enfance Missionnaire.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <div class="activity-card p-8 shadow-md">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="ri-heart-pulse-line text-2xl text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Adoration mensuelle</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Rencontre des enfants missionnaires avec le Christ.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-6">
+                        <i class="ri-calendar-line"></i>
+                        <span>08 février 2026 | 16H00</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Chapelle de la Paroisse</span>
+                    </div>
+                </div>
+
+                <div class="activity-card p-8 shadow-md">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="ri-book-read-line text-2xl text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Formation éducative</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Enseignement sur la vie.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-6">
+                        <i class="ri-calendar-line"></i>
+                        <span>25 février 2026 | 09H00</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Chapelle de la Paroisse</span>
+                    </div>
+                </div>
+
+                <div class="activity-card p-8 shadow-md">
+                    <div class="flex items-start gap-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                            <i class="ri-community-line text-2xl text-primary"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">Journée diocésaine</h3>
+                            <p class="text-gray-600 leading-relaxed">
+                                Journée d'hommage au Père Florent NASCIMENTO.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-6">
+                        <i class="ri-calendar-line"></i>
+                        <span>21 février 2026 | 07H00</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-gray-500 mt-2">
+                        <i class="ri-map-pin-line"></i>
+                        <span>Paroisse St Louis Gbèdégbé</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Activité phare -->
+    <section id="activite-phare" class="py-24 bg-gradient-to-b from-white to-purple-50 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="decorative-circle" style="width: 450px; height: 450px; top: -225px; right: -225px; opacity: 0.3;"></div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Notre Activité Phare
+                </h2>
+            </div>
+
+            <div class="max-w-6xl mx-auto text-center mb-12 px-4"> <div class="bg-white rounded-3xl shadow-xl p-6 md:p-12 border-2 border-primary/10 hover:border-primary/30 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-2">
+        
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <i class="ri-star-fill text-2xl md:text-4xl text-accent"></i>
+                    <h3 class="font-display text-2xl md:text-4xl font-bold text-primary">
+                        La Semaine du Talent
+                    </h3>
+                    <i class="ri-star-fill text-2xl md:text-4xl text-accent"></i>
+                </div>
+                
+                <p class="text-base md:text-xl text-gray-700 leading-relaxed mb-6">
+                    La Semaine du Talent est un événement paroissial de l'Enfance Missionnaire initié par le <strong class="text-primary">Révérend Père Eric BOKPE</strong>, Curé de la paroisse dans le but d'évangéliser par les talents.
+                </p>
+                
+                <div class="bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-6 mb-6 border-l-4 border-accent">
+                    <p class="text-base md:text-lg text-gray-700 leading-relaxed text-left md:text-center">
+                        Créée en <strong class="text-secondary">2020</strong>, cette manifestation est devenue un rendez-vous incontournable pour tous ceux qui souhaitent partager leur passion et leur créativité.
+                    </p>
+                </div>
+                
+                <p class="text-base md:text-lg text-gray-700 leading-relaxed">
+                    Chaque année, plus de <strong class="text-accent">100 participants</strong> de la paroisse, membres d'un mouvement d'enfant ou non, se réunissent pour présenter leurs talents dans diverses disciplines artistiques. L'événement offre une visibilité exceptionnelle aux talents émergents et attire plusieurs spectateurs de la paroisse et d'ailleurs.
+                </p>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            
+            <!-- Card 1 -->
+            <div class="group bg-white rounded-2xl shadow-lg p-8 text-center border-2 border-transparent hover:border-primary/30 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-3">
+                <div class="w-20 h-20 bg-gradient-to-br from-primary to-secondary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <i class="ri-calendar-line text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 font-display">
+                    7 jours d'événements
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Une semaine complète dédiée à la découverte et à la célébration des talents dans toute leur diversité.
+                </p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="group bg-white rounded-2xl shadow-lg p-8 text-center border-2 border-transparent hover:border-secondary/30 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-3">
+                <div class="w-20 h-20 bg-gradient-to-br from-secondary to-accent rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <i class="ri-trophy-line text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 font-display">
+                    10 catégories de compétition
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Des opportunités pour tous les types de talents, de la musique à la danse en passant par les arts visuels.
+                </p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="group bg-white rounded-2xl shadow-lg p-8 text-center border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:shadow-2xl transform hover:-translate-y-3">
+                <div class="w-20 h-20 bg-gradient-to-br from-accent to-primary rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-500">
+                    <i class="ri-group-line text-4xl text-white"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4 font-display">
+                    Participation ouverte à tous
+                </h3>
+                <p class="text-gray-600 leading-relaxed">
+                    Que vous soyez amateur ou professionnel, en solo ou en groupe, il y a une place pour vous.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="text-center mt-12">
+            <a href="{% url 'st2026' %}" class="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-secondary text-white px-8 py-4 rounded-full font-semibold text-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:-translate-y-1">
+                <span>En savoir plus</span>
+                <i class="ri-arrow-right-line text-xl"></i>
+            </a>
+        </div>
+
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="coordination" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Coordination Paroissiale
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    L'équipe qui coordonne et accompagne l'Enfance Missionnaire au sein de la paroisse pour la mandature 2026-2028.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/cure.jpg" alt="Père Eric BOKPE" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">Père Eric BOKPE</h3>
+                    <p class="text-primary font-semibold text-sm">Aumônier paroissial</p>
+                </div>
+                
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/merveil.jpg" alt="TOSSE Merveil" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">TOSSE Merveil</h3>
+                    <p class="text-primary font-semibold">Coordonnateur</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/dona.jpg" alt="KOUTON Orden" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">KOUTON Orden</h3>
+                    <p class="text-primary font-semibold">Secrétaire Général</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/marie.jpg" alt="AÏFI Marie-Lise" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">AÏFI Marie-Lise</h3>
+                    <p class="text-primary font-semibold">Secrétaire Générale Adjointe</p>
+                </div>
+
+            </div><br>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/tracy.jpg" alt="GOUNON Tracy" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">GOUNON Tracy</h3>
+                    <p class="text-primary font-semibold text-sm">Chargée des Affaires Spirituelles</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/maximina.jpg" alt="ASSOGBA Maximina" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">ASSOGBA Maximina</h3>
+                    <p class="text-primary font-semibold">Trésorière Générale</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/aurore.jpg" alt="KOUDE Aurore" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">KOUDE Aurore</h3>
+                    <p class="text-primary font-semibold text-sm">Trésorière Adjointe & Écologie</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/benoit.png" alt="NOUDOFININ Bénoît" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">NOUDOFININ Bénoît</h3>
+                    <p class="text-primary font-semibold">Organisateur Général</p>
+                </div>
+
+                <div class="team-card text-center p-8 shadow-md">
+                    <div class="team-avatar w-32 h-32 mx-auto mb-6 rounded-full overflow-hidden ring-4 ring-primary/10">
+                        <img src="/static/images/folly.jpg" alt="FOLLY Armel" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-900 mb-2">FOLLY Armel</h3>
+                    <p class="text-primary font-semibold">Organisateur Adjoint</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-white py-1">
+        <div class="container mx-auto px-6 text-center">
+            {% comment %} <div class="mb-6">
+                <h3 class="font-display text-2xl font-bold mb-2">Enfance Missionnaire Dodji</h3>
+                <p class="text-gray-400">Mandature 2026-2028</p>
+            </div> {% endcomment %}
+            <div class="border-t border-gray-800 pt-1">
+                <p class="text-gray-500">© 2026 Enfance Missionnaire Dodji. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/vendor.min.js"></script>
+
+    <script src="/static/js/scripts.js"></script>
+
+
+</body>
+
+</html>
