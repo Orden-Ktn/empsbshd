@@ -17,48 +17,37 @@ def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            email = form.cleaned_data['email']
-
-            # Vérifier si le nom d'utilisateur ou l'email existe déjà
-            if User.objects.filter(username=username).exists():
-                messages.error(request, 'Ce nom d\'utilisateur est déjà pris.')
-                return render(request, 'register.html', {'form': form})
-
-            if User.objects.filter(email=email).exists():
-                messages.error(request, 'Cet email est déjà enregistré.')
-                return render(request, 'register.html', {'form': form})
-
-            # Si le nom d'utilisateur et l'email sont uniques, créer l'utilisateur
             user = form.save(commit=False)
-            user.email = email
-            
+            user.email = form.cleaned_data['email']
+
+            user.set_password(form.cleaned_data['password1'])
+
             user.save()
-            messages.success(request, 'Inscription réussie ! Connectez-vous.')
+            messages.success(request, "Inscription réussie ! Connectez-vous.")
             return redirect('login_view')
         else:
-            messages.error(request, 'Erreur lors de l\'inscription. Veuillez vérifier les informations.')
+            messages.error(request, "Erreur lors de l'inscription.")
     else:
         form = CustomUserCreationForm()
+
     return render(request, 'register.html', {'form': form})
 
 #vue pour la connexion
 def login_view(request):
-    if request.method == 'POST':
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            user = authenticate(request, username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard')
-            else:
-                messages.error(request, 'Nom d\'utilisateur ou mot de passe incorrect.')
+    form = LoginForm(request.POST or None)
+
+    if request.method == 'POST' and form.is_valid():
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password']
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('tb_st2026')
         else:
-            messages.error(request, 'Veuillez corriger les erreurs du formulaire.')
-    else:
-        form = LoginForm()
+            messages.error(request, "Nom d'utilisateur ou mot de passe incorrect")
+
     return render(request, 'connexion.html', {'form': form})
 
 #vue pour la déconnexion

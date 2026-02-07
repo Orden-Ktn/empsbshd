@@ -13,7 +13,7 @@ urlpatterns = [
     path('st2026/', views.st2026, name='st2026'),
     path('inscription/', views.register, name='register'),
     path('déconnexion/', views.deconnexion, name='deconnexion'),
-    path('TB/ST2025/', views.dashboard, name='TB/ST2025'),
+    path('tb_st2026/', views.dashboard, name='tb_st2026'),
     path('participant en solo/', views.liste_participant_solo, name='liste_participant_solo'),
     path('groupe participant/', views.liste_participant_groupe, name='liste_participant_groupe'),
 

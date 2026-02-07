@@ -1,195 +1,599 @@
 {% load form_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EM Dodji | ST2025</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="shortcut icon" href="/static/images/favicon/logo_gestschool.png">
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" type="text/css" id="bootstrap-stylesheet">
-    <link href="/static/css/icons.min.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/app.min.css" rel="stylesheet" type="text/css" id="app-stylesheet">
-    <link rel="stylesheet" href="/static/css/auth.css">
-
+    <title>Inscription - EM Dodji | ST2026</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5B21B6',
+                        secondary: '#EC4899',
+                        accent: '#F59E0B',
+                        cream: '#FEF3E2'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="/static/images/favicon/LOGO_EM.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    
     <style>
-        .container {
-    --uib-size: 55px;
-    --uib-color: black;
-    --uib-speed: 1.75s;
-    --uib-bg-opacity: .1;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: var(--uib-size);
-    width: var(--uib-size);
-    transform: rotate(45deg);
-    animation: rotate calc(var(--uib-speed) * 2) ease-in-out infinite;
-    background: white;
-    padding: 2%;
-    opacity: 90%;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-.half {
-    --uib-half-size: calc(var(--uib-size) * 0.435);
-    position: absolute;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: var(--uib-half-size);
-    height: var(--uib-half-size);
-    overflow: hidden;
-    isolation: isolate;
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
 
-    &:first-child {
-    top: 8.25%;
-    left: 8.25%;
-    border-radius: 50% 50% calc(var(--uib-size) / 15);
-    }
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+        }
 
-    &:last-child {
-    bottom: 8.25%;
-    right: 8.25%;
-    transform: rotate(180deg);
-    align-self: flex-end;
-    border-radius: 50% 50% calc(var(--uib-size) / 15);
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            list-style: none;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            animation: animate 25s linear infinite;
+            bottom: -150px;
+        }
 
-    &::after {
-        animation-delay: calc(var(--uib-speed) * -1);
-    }
-    }
+        .bg-animation span:nth-child(1) {
+            left: 25%;
+            width: 80px;
+            height: 80px;
+            animation-delay: 0s;
+        }
 
-    &::before {
-    content: '';
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: var(--uib-color);
-    opacity: var(--uib-bg-opacity);
-    transition: background-color 0.3s ease;
-    }
+        .bg-animation span:nth-child(2) {
+            left: 10%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 2s;
+            animation-duration: 12s;
+        }
 
-    &::after {
-    content: '';
-    position: relative;
-    z-index: 1;
-    display: block;
-    background-color: var(--uib-color);
-    height: 100%;
-    transform: rotate(45deg) translate(-3%, 50%) scaleX(1.2);
-    width: 100%;
-    transform-origin: bottom right;
-    border-radius: 0 0 calc(var(--uib-size) / 20) 0;
-    animation: flow calc(var(--uib-speed) * 2) linear infinite both;
-    transition: background-color 0.3s ease;
-    }
-}
+        .bg-animation span:nth-child(3) {
+            left: 70%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 4s;
+        }
 
-@keyframes flow {
-    0% {
-    transform: rotate(45deg) translate(-3%, 50%) scaleX(1.2);
-    }
-    30% {
-    transform: rotate(45deg) translate(115%, 50%) scaleX(1.2);
-    }
+        .bg-animation span:nth-child(4) {
+            left: 40%;
+            width: 60px;
+            height: 60px;
+            animation-delay: 0s;
+            animation-duration: 18s;
+        }
 
-    30.001%,
-    50% {
-    transform: rotate(0deg) translate(-85%, -85%) scaleX(1);
-    }
+        .bg-animation span:nth-child(5) {
+            left: 65%;
+            width: 20px;
+            height: 20px;
+            animation-delay: 0s;
+        }
 
-    80%,
-    100% {
-    transform: rotate(0deg) translate(0%, 0%) scaleX(1);
-    }
-}
+        .bg-animation span:nth-child(6) {
+            left: 75%;
+            width: 110px;
+            height: 110px;
+            animation-delay: 3s;
+        }
 
-@keyframes rotate {
-    0%,
-    30% {
-    transform: rotate(45deg);
-    }
+        .bg-animation span:nth-child(7) {
+            left: 35%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 7s;
+        }
 
-    50%,
-    80% {
-    transform: rotate(225deg);
-    }
+        .bg-animation span:nth-child(8) {
+            left: 50%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 15s;
+            animation-duration: 45s;
+        }
 
-    100% {
-    transform: rotate(405deg);
-    }
-}
+        .bg-animation span:nth-child(9) {
+            left: 20%;
+            width: 15px;
+            height: 15px;
+            animation-delay: 2s;
+            animation-duration: 35s;
+        }
 
+        .bg-animation span:nth-child(10) {
+            left: 85%;
+            width: 150px;
+            height: 150px;
+            animation-delay: 0s;
+            animation-duration: 11s;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+                border-radius: 0;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+                border-radius: 50%;
+            }
+        }
+
+        /* Loader */
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Register Container */
+        .register-container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .register-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px 36px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.6s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Scrollbar styling */
+        .register-card::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .register-card::-webkit-scrollbar-track {
+            background: rgba(229, 231, 235, 0.3);
+            border-radius: 10px;
+        }
+
+        .register-card::-webkit-scrollbar-thumb {
+            background: rgba(91, 33, 182, 0.5);
+            border-radius: 10px;
+        }
+
+        .register-card::-webkit-scrollbar-thumb:hover {
+            background: rgba(91, 33, 182, 0.7);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .logo-ring {
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            padding: 4px;
+            box-shadow: 0 4px 20px rgba(91, 33, 182, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .logo-ring:hover {
+            transform: scale(1.05);
+        }
+
+        .logo-ring img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 28px;
+            font-size: 0.95rem;
+        }
+
+        /* Alert */
+        .alert-container {
+            margin-bottom: 20px;
+            animation: slideDown 0.5s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .alert {
+            background: linear-gradient(135deg, #5B21B6, #7C3AED);
+            color: white;
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(91, 33, 182, 0.3);
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .alert-message {
+            font-size: 0.85rem;
+            opacity: 0.95;
+        }
+
+        /* Form */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px 20px;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #5B21B6;
+            box-shadow: 0 0 0 4px rgba(91, 33, 182, 0.1);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .password-input {
+            padding-right: 48px;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #6b7280;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: #5B21B6;
+        }
+
+        .error-message {
+            color: #dc2626;
+            font-size: 0.8rem;
+            margin-top: 6px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Button */
+        .btn-submit {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #5B21B6, #7C3AED);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(91, 33, 182, 0.3);
+            margin-top: 8px;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(91, 33, 182, 0.4);
+            background: linear-gradient(135deg, #6D28D9, #8B5CF6);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* Register Link */
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        .register-link a {
+            color: #5B21B6;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #7C3AED;
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .register-footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #6b7280;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .register-card {
+                padding: 28px 20px;
+            }
+
+            .title {
+                font-size: 1.6rem;
+            }
+
+            .logo-ring {
+                width: 60px;
+                height: 60px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <div class="container" id="loader" style="display: none;">
-        <div class="half"></div>
-        <div class="half"></div>
+    
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
 
-    <div class="login-container" id="login-container">
-        <div class="form-column">
-      
-            <h2 class="title">EM Dodji | ST2025 | Création de compte</h2>
+    <!-- Loader -->
+    <div class="loader-container" id="loader" style="display: none;">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Register Container -->
+    <div class="register-container" id="register-container">
+        <div class="register-card">
+            
+            <!-- Logos -->
+            <div class="logo-container">
+                <div class="logo-ring">
+                    <img src="/static/images/sainte_bernadette.png" alt="Sainte Bernadette">
+                </div>
+                <div class="logo-ring">
+                    <img src="/static/images/LOGO_EM.jpg" alt="Logo EM">
+                </div>
+            </div>
+
+            <!-- Title -->
+            <h2 class="title">Créer un compte</h2>
+          
+            <!-- Alerts -->
             {% if messages %}
                 <div class="alert-container">
                     {% for message in messages %}
-                        <div class="alert alert-fill alert-info" role="alert">
-                            <h4 class="alert-title">GestSchool</h4>
-                            <div class="alert-message"><i class="ion ion-ios-alert"></i> {{ message }}</div>
+                        <div class="alert">
+                            <h4 class="alert-title">
+                                <i class="ri-information-line"></i> EM Dodji
+                            </h4>
+                            <div class="alert-message">{{ message }}</div>
                         </div>
                     {% endfor %}
                 </div>
-                {% endif %}
+            {% endif %}
 
-            <form class="form-validate is-alter" method="post" id="login-form" action="{% url 'register' %}" style=" margin-top : 2%;">
+            <!-- Register Form -->
+            <form class="form-validate" method="post" action="{% url 'register' %}" id="register-form">
                 {% csrf_token %}
-                {% for field in form %}
-                    <div class="form-group">
-                        <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                        <div class="form-control-wrap">
-                            {% if field.name == 'password' %}
-                            <div class="password-wrapper">
-                                {{ field|add_class:"form-control form-control-lg password-input" }}
-                                <i class="bx bx-show password-toggle" id="password-toggle-{{ field.id_for_label }}"></i>
-                            </div>
+                
+                <div class="form-grid">
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="form-label" for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+                            
+                            {% if field.name == 'password' or field.name == 'password1' or field.name == 'password2' %}
+                                <div class="password-wrapper">
+                                    {{ field|add_class:"form-control password-input" }}
+                                    <i class="ri-eye-line password-toggle" id="password-toggle-{{ field.id_for_label }}" onclick="togglePassword('{{ field.id_for_label }}')"></i>
+                                </div>
                             {% else %}
-                            {{ field|add_class:"form-control form-control-lg" }}
+                                {{ field|add_class:"form-control" }}
                             {% endif %}
+
                             {% if field.errors %}
-                                <div class="form-note-s2 text-danger">
-                                    {{ field.errors }} 
+                                <div class="error-message">
+                                    <i class="ri-error-warning-line"></i>
+                                    <span>{{ field.errors.0 }}</span>
                                 </div>
                             {% endif %}
-                        </div><br>
-                    </div>
-                {% endfor %}
-                <br>
-                <button type="submit" class="btn">S'inscrire</button>
-                <div class="register-link">
-                    <p>Vous avez un compte? <a href="{% url 'login_view' %}">Connectez-vous</a></p>
+                        </div>
+                    {% endfor %}
                 </div>
-            </form> 
+        
+                <button type="submit" class="btn-submit">
+                    <i class="ri-user-add-line" style="margin-right: 8px;"></i>
+                    S'inscrire
+                </button>
+                
+                <!-- <div class="register-link">
+                    <p>Vous avez déjà un compte ? <a href="{% url 'login_view' %}">Connectez-vous</a></p>
+                </div> -->
+
+            </form>
+
+            <!-- Footer -->
+            <div class="register-footer">
+                <p>© 2026 Enfance Missionnaire Dodji</p>
+            </div>
+           
         </div>
-        <div class="image-column"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/static/js/auth.js"></script>
+
+    <!-- Scripts -->
     <script>
-        document.getElementById('login-form').addEventListener('submit', function(e) {
-            // Afficher le loader
-            document.getElementById('loader').style.display = 'flex';
+        // Auto-hide alerts after 5 seconds
+        setTimeout(function() {
+            let alerts = document.querySelectorAll('.alert-container');
+            alerts.forEach(function(alert) {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-20px)';
+                alert.style.transition = 'all 0.5s ease';
+                setTimeout(() => alert.remove(), 500);
+            });
+        }, 5000);
+
+        // Password toggle function
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIcon = document.getElementById('password-toggle-' + fieldId);
             
-            // Masquer le formulaire
-            document.getElementById('login-container').style.display = 'none';
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('ri-eye-line');
+                toggleIcon.classList.add('ri-eye-off-line');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('ri-eye-off-line');
+                toggleIcon.classList.add('ri-eye-line');
+            }
+        }
+
+        // Form submission loader
+        document.getElementById('register-form').addEventListener('submit', function() {
+            document.getElementById('loader').style.display = 'flex';
+            document.getElementById('register-container').style.opacity = '0';
         });
     </script>
+
 </body>
-
-
 </html>
