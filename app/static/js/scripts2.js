@@ -1,7 +1,7 @@
 
 // Date limite d'inscription (10 août 2026 à 00h00)
 const dateDebut = new Date('2026-06-25T00:00:00');
-const dateLimite = new Date('2026-02-06T00:00:00');
+const dateLimite = new Date('2026-08-10T00:00:00');
 const maintenant = new Date();
 
 const boutons = document.querySelectorAll('button[data-toggle="modal"]');

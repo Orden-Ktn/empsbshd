@@ -91,6 +91,8 @@ def dashboard(request):
     total_ao = ao.count()
     ac = Inscription_solo.objects.filter(Q(categorie='A Capella') & Q(statut='valide'))
     total_ac = ac.count()
+    trico = Inscription_solo.objects.filter(Q(categorie='Tricotage') & Q(statut='valide'))
+    total_trico = trico.count()
     context = {
         'total_inscription_solo': total_inscription_solo,
         'total_inscription_groupe':total_inscription_groupe,
@@ -104,9 +106,11 @@ def dashboard(request):
         'total_couture':total_couture,
         'total_cuisine':total_cuisine,
         'total_ao':total_ao,
-        'total_ac':total_ac
+        'total_ac':total_ac,
+        'total_trico':total_trico
     }
     return render(request, 'dashboard.html', context)
+
 
 #vue pour les participants en groupe
 @login_required
