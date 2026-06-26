@@ -399,6 +399,7 @@ footer::before {
     border: 1px solid #e5e7eb;
     border-radius: 0.75rem;
     transition: all 0.2s;
+    flex-wrap: wrap;
 }
 .file-row:hover {
     border-color: #c4b5fd;
