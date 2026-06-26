@@ -359,3 +359,95 @@ footer::before {
     box-shadow: 0 8px 25px rgba(91, 33, 182, 0.4);
     background: linear-gradient(135deg, #6D28D9, #8B5CF6);
 }
+
+/* === Onglets Ressources === */
+.tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1.5px solid transparent;
+    background: #f3f4f6;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+.tab-btn:hover {
+    background: #ede9fe;
+    color: #5B21B6;
+    border-color: #c4b5fd;
+}
+.tab-btn.active {
+    background: #5B21B6;
+    color: #ffffff;
+    border-color: #5B21B6;
+    box-shadow: 0 2px 8px rgba(91,33,182,0.25);
+}
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+.file-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.875rem 1.25rem;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.75rem;
+    transition: all 0.2s;
+}
+.file-row:hover {
+    border-color: #c4b5fd;
+    box-shadow: 0 2px 8px rgba(91,33,182,0.08);
+}
+.file-icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 1.25rem;
+}
+.file-icon.music  { background: #dbeafe; color: #2563eb; }
+.file-icon.pdf  { background: #fee2e2; color: #dc2626; }
+.file-icon.img  { background: #d1fae5; color: #059669; }
+.file-icon.vid  { background: #fce7f3; color: #db2777; }
+.file-icon.zip  { background: #fef3c7; color: #d97706; }
+.file-icon.misc { background: #f3f4f6; color: #6b7280; }
+
+.btn-dl {
+    margin-left: auto;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #ede9fe;
+    color: #5B21B6;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+.btn-dl:hover { background: #ddd6fe; }
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #9ca3af;
+}
+.empty-state i { font-size: 3rem; display: block; margin-bottom: 0.75rem; }
+
+.tabs-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+.tabs-scroll::-webkit-scrollbar { display: none; }

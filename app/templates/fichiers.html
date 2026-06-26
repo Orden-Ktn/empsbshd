@@ -1,0 +1,328 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semaine du Talent 2026 - EM DODJI</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5B21B6',
+                        secondary: '#EC4899',
+                        accent: '#F59E0B',
+                        cream: '#FEF3E2'
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                        accent: ['Pacifico', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="/static/images/favicon/LOGO_EM.jpg">
+    <link rel="stylesheet" href="/static/css/styles2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Scroll Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Alert Messages -->
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert">
+                <h4 class="alert-title">✨ Semaine du Talent 2026</h4>
+                <div class="alert-message">{{ message }}</div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <section id="accueil" class="hero-bg relative overflow-hidden"
+        data-images='[
+            "/static/images/IMG_2714.jpg",
+            "/static/images/IMG-20250830-WA0084.jpg"
+        ]'>
+
+        <div class="decorative-circle" style="width: 400px; height: 400px; top: -200px; right: -200px;"></div>
+        <div class="decorative-circle" style="width: 300px; height: 300px; bottom: -150px; left: -150px;"></div>
+
+        <div class="hero-overlay absolute inset-0"></div>
+
+        <div class="container mx-auto px-4 py-24 md:py-36 lg:py-44 relative">
+            <div class="max-w-4xl">
+
+                <div class="mb-12 flex flex-wrap items-center gap-6 md:gap-8">
+                    <div class="logo-container animate-scale-in delay-100">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/LOGO_EM.jpg' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Logo EM">
+                        </div>
+                    </div>
+                    <div class="logo-container animate-scale-in delay-200">
+                        <div class="logo-ring w-28 h-28 md:w-36 md:h-36 flex items-center justify-center p-1">
+                            <img src="{% static 'images/logo2.png' %}"
+                                class="w-full h-full object-cover rounded-full" alt="Logo ST 2026">
+                        </div>
+                    </div>
+                </div>
+
+                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 animate-fade-up delay-300 leading-tight">
+                    Semaine du Talent<br>
+                    <span class="text-primary">2026</span>
+                </h1>
+
+                <div class="date-badge inline-block text-white px-6 py-4 rounded-2xl text-lg font-semibold mb-8 shadow-xl animate-fade-up delay-400">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="ri-calendar-event-fill text-2xl"></i>
+                        <span>Du 24 au 30 Août 2026</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="ri-map-pin-2-fill text-2xl"></i>
+                        <span>Chapelle du Presbytère</span>
+                    </div>
+                </div>
+
+                <div class="theme-card rounded-3xl p-8 md:p-10 shadow-xl animate-fade-up delay-500">
+                    <p class="text-lg md:text-xl text-gray-800 leading-relaxed font-display">
+                        <span class="font-semibold text-primary text-xl md:text-2xl block mb-4">Thème</span>
+                        <em class="block mt-3 text-gray-700 italic text-2xl md:text-3xl">
+                            « Des talents à fructifier, une autonomie à bâtir. »
+                        </em>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="ressources" class="py-24 bg-gradient-to-b from-white to-gray-50">
+        <div class="container mx-auto px-6">
+
+            <!-- En-tête -->
+            <div class="text-center mb-14">
+                <h2 class="section-title font-display text-4xl md:text-5xl font-bold text-gray-900 mb-6 inline-block">
+                    Ressources par Catégorie
+                </h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
+                    Retrouvez ici tous les fichiers utiles classés par catégorie de compétition.
+                </p>
+            </div>
+
+            <!-- Onglets -->
+            <div class="tabs-scroll mb-8">
+                <div class="flex gap-3 pb-1" id="tabBar" style="min-width: max-content;">
+                    
+                    <button class="tab-btn active" data-tab="acapella">
+                        <i class="ri-mic-line"></i> A Capella
+                    </button>
+                    <button class="tab-btn" data-tab="danse">
+                        <i class="ri-run-line"></i> Danse
+                    </button>
+                    <button class="tab-btn" data-tab="theatre">
+                        <i class="ri-live-line"></i> Théâtre
+                    </button>
+                    <button class="tab-btn" data-tab="art-oratoire">
+                        <i class="ri-megaphone-line"></i> Art Oratoire
+                    </button>
+                    <button class="tab-btn" data-tab="qpc">
+                        <i class="ri-question-line"></i> Question Pour un Champion
+                    </button>
+                    <button class="tab-btn" data-tab="epelle">
+                        <i class="ri-clapperboard-line"></i> Épelle-Moi!
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Contenu des onglets -->
+            <div class="bg-white rounded-3xl border border-gray-100 shadow-sm p-8 min-h-64">
+
+                <!-- A CAPELLA -->
+                <div class="tab-panel" id="tab-acapella">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">A Capella</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs à la catégorie A Capella.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Guide des étapes</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/Etapes A Capella.pdf" class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">L'oiseau Et L'enfant - Marie Myriam</p>
+                                <p class="text-xs text-gray-400">1er morceau proposé pour la demi-finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/L'oiseau Et L'enfant - Marie Myriam.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Les yeux de la mama - Kendji Girac</p>
+                                <p class="text-xs text-gray-400">2ème morceau proposé pour la demi-finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/Les yeux de la mama - Kendji Girac.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Mère ya Palais - Warren Saada</p>
+                                <p class="text-xs text-gray-400">3ème morceau proposé pour la demi-finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/Mère ya Palais - Warren Saada.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">On Ecrit Sur Les Murs - Kids United</p>
+                                <p class="text-xs text-gray-400">Morceau imposé de la finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/On Ecrit Sur Les Murs - Kids United.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Avant toi - Vitaa & Slimane</p>
+                                <p class="text-xs text-gray-400">1er morceau proposé pour la finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/Avant toi - Vitaa & Slimane.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">La Même - Maître Gims & Vianney</p>
+                                <p class="text-xs text-gray-400">2ème morceau proposé pour la finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/La Même - Maître Gims & Vianney.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon music"><i class="ri-music-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">1,2,3 - Amel Bent & Hatik</p>
+                                <p class="text-xs text-gray-400">3ème morceau proposé pour la finale</p>
+                            </div>
+                            <a href="/media/ressources/a_capella/1,2,3 - Amel Bent & Hatik.mp3" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DANSE -->
+                <div class="tab-panel active" id="tab-danse">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Danse</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs à la catégorie Danse.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Guide des étapes</p>
+                            </div>
+                            <a href="/media/ressources/danse/Etapes Danse.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                       
+                    </div>
+                </div>
+
+                <!-- THÉÂTRE -->
+                <div class="tab-panel" id="tab-theatre">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Théâtre</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs à la catégorie Théâtre.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Thématiques</p>
+                            </div>
+                            <a href="/media/ressources/theatre/Thématiques Théâtre.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ART ORATOIRE -->
+                <div class="tab-panel" id="tab-art-oratoire">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Art Oratoire</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs à la catégorie Art Oratoire.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Guide de l'orateur</p>
+                            </div>
+                            <a href="/media/ressources/art_oratoire/GUIDE_DE_L'ORATEUR.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Thématiques</p>
+                            </div>
+                            <a href="/media/ressources/art_oratoire/Thématiques Art Oratoire.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- QUESTION POUR UN CHAMPION -->
+                <div class="tab-panel" id="tab-qpc">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Question Pour un Champion</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs au concours de culture générale.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Guide du champion</p>
+                            </div>
+                            <a href="/media/ressources/qpc/GUIDE_DU_CHAMPION.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÉPELLE-MOI -->
+                <div class="tab-panel" id="tab-epelle">
+                    <h3 class="font-display text-2xl font-bold text-gray-900 mb-2">Épelle-Moi!</h3>
+                    <p class="text-gray-500 text-sm mb-6">Fichiers relatifs au concours d'orthographe.</p>
+                    <div class="flex flex-col gap-3">
+                        <div class="file-row">
+                            <div class="file-icon pdf"><i class="ri-file-pdf-line"></i></div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-semibold text-gray-800 text-sm truncate">Guide de l'épeleur</p>
+                            </div>
+                            <a href="/media/ressources/epelle_moi/GUIDE_EPELEUR.pdf" download class="btn-dl"><i class="ri-download-line"></i> Télécharger</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+  
+    <!-- Footer -->
+    <footer class="text-white py-1">
+        <div class="container mx-auto px-6 text-center">
+            <div class="border-t border-gray-800 pt-2">
+                <p class="text-gray-500">© 2026 Enfance Missionnaire Dodji. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="/static/js/vendor.min.js"></script>
+    <script src="/static/js/scripts2.js"></script>
+
+</body>
+</html>

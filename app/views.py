@@ -62,6 +62,10 @@ def accueil(request):
 def st2026(request):
     return render(request, 'page_st.html')
 
+
+def fichiers(request):
+    return render(request, 'fichiers.html')
+
 #vue pour le dashboard
 @login_required
 def dashboard(request):

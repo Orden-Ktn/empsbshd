@@ -158,3 +158,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const buttons = document.querySelectorAll('#tabBar .tab-btn');
+    const panels  = document.querySelectorAll('.tab-panel');
+
+    buttons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            const target = btn.dataset.tab;
+
+            // Désactiver tous
+            buttons.forEach(function (b) { b.classList.remove('active'); });
+            panels.forEach(function (p)  { p.classList.remove('active'); });
+
+            // Activer le bon
+            btn.classList.add('active');
+            var panel = document.getElementById('tab-' + target);
+            if (panel) { panel.classList.add('active'); }
+        });
+    });
+});

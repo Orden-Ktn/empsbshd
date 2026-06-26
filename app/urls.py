@@ -11,6 +11,9 @@ urlpatterns = [
     path('', views.accueil, name='accueil'),
     path('connexion/', views.login_view, name='login_view'),
     path('st2026/', views.st2026, name='st2026'),
+    path('fichiers/', views.fichiers, name='fichiers'),
+
+
     path('inscription/', views.register, name='register'),
     path('déconnexion/', views.deconnexion, name='deconnexion'),
     path('tb_st2026/', views.dashboard, name='tb_st2026'),
@@ -39,4 +42,4 @@ urlpatterns = [
     path('rejeter inscription groupe/<int:id>/', views.rejeter_inscription_groupe, name='rejeter_inscription_groupe'),
 
 
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
