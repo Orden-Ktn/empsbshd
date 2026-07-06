@@ -462,3 +462,28 @@ footer::before {
     scrollbar-width: none;
 }
 .tabs-scroll::-webkit-scrollbar { display: none; }
+
+.btn-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* Nouvelle couleur pour le bouton Parole */
+.btn-dl-parole {
+    justify-self: start;
+    align-self: start;
+    padding: 0.4rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #fce7f3;
+    color: #db2777;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+.btn-dl-parole:hover { background: #fbcfe8; }
