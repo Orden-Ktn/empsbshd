@@ -84,24 +84,28 @@ window.addEventListener('scroll', () => {
 });
 
 // Hero Background Slider
+// Hero Background Slider
 const hero = document.getElementById("accueil");
-const images = JSON.parse(hero.dataset.images);
-let current = 0;
 
-function loadHeroImage(index) {
-    const img = new Image();
-    img.onload = function() {
-        hero.style.backgroundImage = `url('${images[index]}')`;
-    };
-    img.src = images[index];
+if (hero && hero.dataset.images) {
+    const images = JSON.parse(hero.dataset.images);
+    let current = 0;
+
+    function loadHeroImage(index) {
+        const img = new Image();
+        img.onload = function() {
+            hero.style.backgroundImage = `url('${images[index]}')`;
+        };
+        img.src = images[index];
+    }
+
+    loadHeroImage(0);
+
+    setInterval(() => {
+        current = (current + 1) % images.length;
+        loadHeroImage(current);
+    }, 6000);
 }
-
-loadHeroImage(0);
-
-setInterval(() => {
-    current = (current + 1) % images.length;
-    loadHeroImage(current);
-}, 6000);
 
 // Intersection Observer for scroll animations
 const observerOptions = {

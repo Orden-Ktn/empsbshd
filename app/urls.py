@@ -17,23 +17,17 @@ urlpatterns = [
     path('inscription/', views.register, name='register'),
     path('déconnexion/', views.deconnexion, name='deconnexion'),
     path('tb_st2026/', views.dashboard, name='tb_st2026'),
-    path('participant en solo/', views.liste_participant_solo, name='liste_participant_solo'),
-    path('groupe participant/', views.liste_participant_groupe, name='liste_participant_groupe'),
+
 
     path('liste des inscriptions/', views.liste_inscriptions, name='liste_inscriptions'),
     path('inscription en solo/', views.inscription_solo, name='inscription_solo'),
     path('inscription en groupe/', views.inscription_groupe, name='inscription_groupe'),
 
-    # path('fichiers solo/', views.fichiers_solo, name='fichiers_solo'),
-    # path('fichiers groupe/', views.fichiers_groupe, name='fichiers_groupe'),
+    path('participants/solo/', views.liste_participant_solo, name='liste_participant_solo'),
+    path('participants/solo/pdf/', views.export_participant_solo_pdf, name='export_participant_solo_pdf'),
 
-    # path('liste des enfants/', views.liste_enfants, name='liste_enfants'),
-
-    # path('solo/modifier/<int:id>/', views.modifier_solo, name='modifier_solo'),
-    # path('solo/supprimer/<int:id>/', views.supprimer_solo, name='supprimer_solo'),
-
-    # path('groupe/<int:id>/modifier/', views.modifier_groupe, name='modifier_groupe'),
-    # path('groupe/<int:id>/supprimer/', views.supprimer_groupe, name='supprimer_groupe'),
+    path('participants/groupe/', views.liste_participant_groupe, name='liste_participant_groupe'),
+    path('participants/groupe/pdf/', views.export_participant_groupe_pdf, name='export_participant_groupe_pdf'),
 
 
     path('accepter inscription solo/<int:id>/', views.accepter_inscription_solo, name='accepter_inscription_solo'),

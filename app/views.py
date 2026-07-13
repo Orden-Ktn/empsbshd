@@ -8,6 +8,8 @@ from .models import *
 from .forms import *
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
+from django.http import HttpResponse
+from fpdf import FPDF
 
 
 User = get_user_model()
@@ -89,8 +91,8 @@ def dashboard(request):
     total_dessin = dessin.count()
     couture = Inscription_solo.objects.filter(Q(categorie='Couture') & Q(statut='valide'))
     total_couture = couture.count()
-    cuisine = Inscription_solo.objects.filter(Q(categorie='Cuisine') & Q(statut='valide'))
-    total_cuisine = cuisine.count()
+    restauration = Inscription_solo.objects.filter(Q(categorie='Restauration') & Q(statut='valide'))
+    total_restauration = restauration.count()
     ao = Inscription_solo.objects.filter(Q(categorie='Art Oratoire') & Q(statut='valide'))
     total_ao = ao.count()
     ac = Inscription_solo.objects.filter(Q(categorie='A Capella') & Q(statut='valide'))
@@ -108,7 +110,7 @@ def dashboard(request):
         'total_th':total_th,
         'total_dessin':total_dessin,
         'total_couture':total_couture,
-        'total_cuisine':total_cuisine,
+        'total_restauration':total_restauration,
         'total_ao':total_ao,
         'total_ac':total_ac,
         'total_trico':total_trico
@@ -116,31 +118,103 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 
-#vue pour les participants en groupe
+
+# --- Participants solo ---
 @login_required
 def liste_participant_solo(request):
+    solo = None
+    categorie = None
+
     if request.method == 'POST':
         categorie = request.POST.get('categorie')
-        categorie_existe = Inscription_solo.objects.filter(categorie=categorie).exists()
+        solo = Inscription_solo.objects.filter(categorie=categorie, statut='valide')
 
-        if categorie_existe:
-            solo = Inscription_solo.objects.filter(statut='valide')
-            return render(request, 'all_participant_solo.html', {'solo': solo})
-        
-    return render(request, 'all_participant_solo.html')
+    return render(request, 'all_participant_solo.html', {
+        'solo': solo,
+        'categorie': categorie,
+    })
 
-#vue pour les groupes participants
+
+@login_required
+def export_participant_solo_pdf(request):
+    categorie = request.GET.get('categorie')
+    solo = Inscription_solo.objects.filter(categorie=categorie, statut='valide')
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, f"Liste des participants - {categorie}", ln=True, align="C")
+    pdf.ln(5)
+
+    pdf.set_font("Helvetica", "B", 10)
+    headers = ["N°", "Enfant", "Age", "Mouvement", "Categorie", "Contact"]
+    widths = [12, 45, 15, 35, 40, 35]
+    for h, w in zip(headers, widths):
+        pdf.cell(w, 8, h, border=1)
+    pdf.ln()
+
+    pdf.set_font("Helvetica", "", 9)
+    for i, s in enumerate(solo, start=1):
+        pdf.cell(widths[0], 8, str(i), border=1)
+        pdf.cell(widths[1], 8, str(s.nom_prenom), border=1)
+        pdf.cell(widths[2], 8, str(s.age), border=1)
+        pdf.cell(widths[3], 8, str(s.groupe), border=1)
+        pdf.cell(widths[4], 8, str(s.categorie), border=1)
+        pdf.cell(widths[5], 8, str(s.contact), border=1)
+        pdf.ln()
+
+    response = HttpResponse(bytes(pdf.output()), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="participants_{categorie}.pdf"'
+    return response
+
+
+# --- Groupes participants ---
 @login_required
 def liste_participant_groupe(request):
+    groupe = None
+    categorie = None
+
     if request.method == 'POST':
         categorie = request.POST.get('categorie')
-        categorie_existe = Inscription_groupe.objects.filter(categorie=categorie).exists()
+        groupe = Inscription_groupe.objects.filter(categorie=categorie, statut='valide')
 
-        if categorie_existe:
-            groupe = Inscription_groupe.objects.filter(statut='valide')
-            return render(request, 'all_participant_groupe.html', {'groupe': groupe})
-        
-    return render(request, 'all_participant_groupe.html')
+    return render(request, 'all_participant_groupe.html', {
+        'groupe': groupe,
+        'categorie': categorie,
+    })
+
+
+@login_required
+def export_participant_groupe_pdf(request):
+    categorie = request.GET.get('categorie')
+    groupe = Inscription_groupe.objects.filter(categorie=categorie, statut='valide')
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, f"Liste des groupes - {categorie}", ln=True, align="C")
+    pdf.ln(5)
+
+    pdf.set_font("Helvetica", "B", 10)
+    headers = ["N°", "Capitaine", "Equipe", "Effectif", "Categorie", "Contact"]
+    widths = [15, 40, 40, 25, 35, 35]
+    for h, w in zip(headers, widths):
+        pdf.cell(w, 8, h, border=1)
+    pdf.ln()
+
+    pdf.set_font("Helvetica", "", 9)
+    for i, g in enumerate(groupe, start=1):
+        pdf.cell(widths[0], 8, str(i), border=1)
+        pdf.cell(widths[1], 8, str(g.capitaine), border=1)
+        pdf.cell(widths[2], 8, str(g.nom_equipe), border=1)
+        pdf.cell(widths[3], 8, str(g.effectif), border=1)
+        pdf.cell(widths[4], 8, str(g.categorie), border=1)
+        pdf.cell(widths[5], 8, str(g.contact), border=1)
+        pdf.ln()
+
+    response = HttpResponse(bytes(pdf.output()), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="groupes_{categorie}.pdf"'
+    return response
 
 
 #vue pour les inscriptions en solo

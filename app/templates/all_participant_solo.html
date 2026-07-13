@@ -48,7 +48,7 @@
                                                     <option value="Question Pour un Champion">Question Pour un Champion</option>
                                                     <option value="Miss & Mister">Miss & Mister</option>
                                                     <option value="Couture">Couture</option>
-                                                    <option value="Cuisine">Cuisine</option>
+                                                    <option value="Restauration">Restauration</option>
                                                     <option value="Art Oratoire">Art Oratoire</option>
                                                     <option value="Tricotage">Tricotage</option>
                                                 </select>
@@ -59,6 +59,14 @@
                                         </div>
                                                                           
                                     </form>
+                                    {% if categorie %}
+                                        <div class="mb-3">
+                                            <a href="{% url 'export_participant_solo_pdf' %}?categorie={{ categorie|urlencode }}"
+                                            class="btn" style="background-color: #dc3545; color: white;" target="_blank">
+                                                <i class="ion ion-ios-download"></i> Télécharger en PDF
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

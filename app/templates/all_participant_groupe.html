@@ -52,6 +52,14 @@
                                         </div>                                       
                                         
                                     </form>
+                                    {% if categorie %}
+                                        <div class="mb-3">
+                                            <a href="{% url 'export_participant_groupe_pdf' %}?categorie={{ categorie|urlencode }}"
+                                            class="btn" style="background-color: #dc3545; color: white;" target="_blank">
+                                                <i class="ion ion-ios-download"></i> Télécharger en PDF
+                                            </a>
+                                        </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
