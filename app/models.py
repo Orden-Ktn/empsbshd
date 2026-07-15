@@ -59,4 +59,20 @@ class Inscription_groupe(models.Model):
     statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en attente')
 
     def __str__(self):
+        return f"{self.nom_equipe} - {self.statut}"
+
+
+class Inscription_libre(models.Model):
+    STATUT_CHOICES = [
+        ('en attente', 'En attente'),
+        ('valide', 'Validé'),
+    ]
+
+    nom_prenom = models.CharField(max_length=50)
+    contact = models.CharField(max_length=50)
+    effectif = models.CharField(max_length=100)
+    categorie = models.CharField(max_length=100)
+    statut = models.CharField(max_length=20, choices=STATUT_CHOICES, default='en attente')
+
+    def __str__(self):
         return f"{self.nom_prenom} - {self.statut}"

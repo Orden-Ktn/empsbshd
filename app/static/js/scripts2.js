@@ -1,35 +1,59 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const maintenant = new Date();
 
-// Date limite d'inscription (10 août 2026 à 00h00)
-const dateDebut = new Date('2026-06-25T00:00:00');
-const dateLimite = new Date('2026-08-10T00:00:00');
-const maintenant = new Date();
+    // Fenêtre Solo & Groupe
+    const soloGroupeDebut = new Date('2026-06-25T00:00:00');
+    const soloGroupeFin   = new Date('2026-08-14T00:00:00'); // clôture le 13 août à minuit
 
-const boutons = document.querySelectorAll('button[data-toggle="modal"]');
+    // Fenêtre Prestation Libre
+    const libreDebut = new Date('2026-08-16T00:00:00');
+    const libreFin   = new Date('2026-08-27T18:00:00');
 
-boutons.forEach(btn => {
+    // --- Cartes Solo & Groupe ---
+    const cardSolo = document.getElementById('card-solo');
+    const cardGroupe = document.getElementById('card-groupe');
+    const boutonsSoloGroupe = document.querySelectorAll('.btn-solo-groupe');
 
-    // AVANT le 25 juin
-    if (maintenant < dateDebut) {
-        btn.disabled = true;
-        btn.textContent = "Inscription à partir du 25 Juin";
+    if (maintenant >= soloGroupeFin) {
+        // Après le 13 août : on cache complètement les cartes Solo et Groupe
+        if (cardSolo) cardSolo.classList.add('hidden');
+        if (cardGroupe) cardGroupe.classList.add('hidden');
+    } else {
+        boutonsSoloGroupe.forEach(function (btn) {
+            if (maintenant < soloGroupeDebut) {
+                btn.disabled = true;
+                btn.textContent = "Inscription à partir du 25 Juin";
+                btn.classList.add('opacity-50', 'cursor-not-allowed');
+            } else {
+                btn.disabled = false;
+                btn.textContent = "S'inscrire";
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
     }
 
-    // ENTRE le 25 juin et le 10 août
-    else if (maintenant >= dateDebut && maintenant < dateLimite) {
-        btn.disabled = false;
-        btn.textContent = "S'inscrire";
-    }
-
-    // APRÈS le 10 août
-    else {
-        btn.disabled = true;
-        btn.textContent = "Inscriptions clôturées";
-        btn.classList.add('opacity-50', 'cursor-not-allowed');
-        btn.removeAttribute('data-toggle');
-        btn.removeAttribute('data-target');
+    // --- Carte Prestation Libre ---
+    const btnLibre = document.getElementById('btn-libre');
+    if (btnLibre) {
+        if (maintenant < libreDebut) {
+            btnLibre.disabled = true;
+            btnLibre.textContent = "A partir du 16 Août";
+            btnLibre.classList.add('opacity-50', 'cursor-not-allowed');
+        } else if (maintenant >= libreDebut && maintenant <= libreFin) {
+            btnLibre.disabled = false;
+            btnLibre.textContent = "S'inscrire";
+            btnLibre.classList.remove('opacity-50', 'cursor-not-allowed');
+            btnLibre.removeAttribute('data-toggle');
+        } else {
+            btnLibre.disabled = true;
+            btnLibre.textContent = "Inscriptions clôturées";
+            btnLibre.classList.add('opacity-50', 'cursor-not-allowed');
+            btnLibre.removeAttribute('data-toggle');
+            btnLibre.removeAttribute('data-target');
+        }
     }
 });
-
+    
 
 const selectCategorie = document.getElementById('categorie');
 const autreCategorieContainer = document.getElementById('autre-categorie-container');

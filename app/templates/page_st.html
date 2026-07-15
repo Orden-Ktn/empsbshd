@@ -43,7 +43,7 @@
     {% if messages %}
         <div class="alert-container">
             {% for message in messages %}
-            <div class="alert">
+            <div class="alert alert-fill alert-info" role="alert">
                 <h4 class="alert-title">✨ Semaine du Talent 2026</h4>
                 <div class="alert-message">{{ message }}</div>
             </div>
@@ -95,7 +95,7 @@
                 <div class="date-badge inline-block text-white px-6 py-4 rounded-2xl text-lg font-semibold mb-8 shadow-xl animate-fade-up delay-400">
                     <div class="flex items-center gap-2 mb-2">
                         <i class="ri-calendar-event-fill text-2xl"></i>
-                        <span>Du 24 au 30 Août 2026</span>
+                        <span>Du 23 au 30 Août 2026</span>
                     </div>
                     <div class="flex items-center gap-2">
                         <i class="ri-map-pin-2-fill text-2xl"></i>
@@ -284,20 +284,20 @@
                     Inscrivez-vous maintenant
                 </h2>
                 <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mt-8">
-                    Les inscriptions pour l'édition 2026 débutent le <em style="font-weight: bold;">25 juin 2026 </em> et se terminent le <em style="font-weight: bold;">10 août 2026</em> ! Choisissez votre mode de participation et rejoignez l'aventure.
+                    Les inscriptions pour compétir à l'édition 2026 prennent fin le <em style="font-weight: bold;">13 août 2026 !</em> Vous pouvez également vous inscrire afin de faire une prestation libre. Choisissez votre mode de participation et rejoignez l'aventure.
                 </p>
             </div>
 
-            <div class="flex flex-col md:flex-row gap-8 max-w-5xl mx-auto">
+            <div id="cartes-inscription" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
 
                 <!-- Solo Card -->
-                <div class="flex-1 inscription-card p-10">
+                <div id="card-solo" class="inscription-card p-10">
                     <div class="w-24 h-24 bg-gradient-to-br from-primary to-secondary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                         <i class="ri-user-line text-5xl text-white"></i>
                     </div>
                     <h3 class="text-3xl font-bold mb-4 text-center font-display text-gray-900">Solo</h3>
                     <p class="text-gray-600 mb-8 text-center leading-relaxed">
-                        Parfait pour les artistes individuels souhaitant montrer leur talent personnel dans l'une de nos catégories.
+                        Parfait pour les artistes individuels souhaitant montrer leur talent dans l'une de nos catégories.
                     </p>
                     <ul class="mb-8 space-y-3">
                         <li class="flex items-start">
@@ -314,13 +314,13 @@
                         </li>
                     </ul>
                     <button onclick="openModal('modal-solo')" type="button" data-toggle="modal" data-target=".solo"
-                        class="btn-primary w-full text-center">
+                        class="btn-primary btn-solo-groupe w-full text-center">
                         S'inscrire en Solo
                     </button>
                 </div>
 
                 <!-- Groupe Card -->
-                <div class="flex-1 inscription-card p-10">
+                <div id="card-groupe" class="inscription-card p-10">
                     <div class="w-24 h-24 bg-gradient-to-br from-secondary to-accent rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                         <i class="ri-team-line text-5xl text-white"></i>
                     </div>
@@ -343,8 +343,38 @@
                         </li>
                     </ul>
                     <button onclick="openModal('modal-groupe')" type="button" data-toggle="modal" data-target=".groupe"
-                        class="btn-primary w-full text-center">
+                        class="btn-primary btn-solo-groupe w-full text-center">
                         S'inscrire en Groupe
+                    </button>
+                </div>
+
+                <!-- Prestation Libre Card -->
+                <div id="card-libre" class="inscription-card p-10">
+                    <div class="w-24 h-24 bg-gradient-to-br from-accent to-primary rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <i class="ri-sparkling-2-line text-5xl text-white"></i>
+                    </div>
+                    <h3 class="text-3xl font-bold mb-4 text-center font-display text-gray-900">Prestation Libre</h3>
+                    <p class="text-gray-600 mb-8 text-center leading-relaxed">
+                        Ouvert à tous : venez présenter une prestation libre en Danse, Théâtre ou Interprétation Musicale.
+                    </p>
+                    <ul class="mb-8 space-y-3">
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-accent mt-1 mr-3"></i>
+                            <span class="text-gray-700">Danse</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-accent mt-1 mr-3"></i>
+                            <span class="text-gray-700">Théâtre</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ri-check-line text-2xl text-accent mt-1 mr-3"></i>
+                            <span class="text-gray-700">Interprétation Musicale</span>
+                        </li>
+                    </ul>
+                   
+                    <button id="btn-libre" onclick="openModal('modal-libre')" type="button" data-toggle="modal" data-target=".libre"
+                        class="btn-primary w-full text-center">
+                        A partir du 16 Août
                     </button>
                 </div>
 
@@ -542,6 +572,64 @@
                     <input type="text" name="autre_categorie"
                         class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
                 </div> {% endcomment %}
+
+                <div class="pt-4">
+                    <button type="submit"
+                            class="w-full py-3 rounded-full bg-green-600 text-white font-semibold hover:bg-green-700 transition">
+                        Envoyer l'inscription
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Prestation Libre -->
+    <div id="modal-libre" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-2xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b bg-gradient-to-r from-accent to-primary text-white">
+                <h3 class="text-xl font-semibold flex items-center gap-2">
+                    <i class="ri-sparkling-2-line text-2xl"></i> Inscription Prestation Libre
+                </h3>
+                <button onclick="closeModal('modal-libre')" class="text-2xl">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <form action="{% url 'inscription_libre' %}" method="POST"
+                class="p-6 space-y-4 max-h-[70vh] overflow-y-auto">
+                {% csrf_token %}
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Nom & Prénoms (ou nom du groupe)</label>
+                    <input type="text" name="nom_prenom" required
+                        class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Effectif</label>
+                        <input type="number" name="effectif" min="1" max="10" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Contact</label>
+                        <input type="text" name="contact" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Catégorie</label>
+                    <select id="categorie_libre" name="categorie" required
+                            class="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-primary">
+                        <option value="">Sélectionner</option>
+                        <option>Danse</option>
+                        <option>Théâtre</option>
+                        <option>Interprétation Musicale</option>
+                    </select>
+                </div>
 
                 <div class="pt-4">
                     <button type="submit"

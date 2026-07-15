@@ -75,6 +75,8 @@ def dashboard(request):
     total_inscription_solo = solo.count()
     groupe = Inscription_groupe.objects.filter(statut='valide')
     total_inscription_groupe = groupe.count()
+    libre = Inscription_libre.objects.filter(statut='valide')
+    total_prestations_libres = libre.count()
     total_membre = sum(int(g.effectif) for g in groupe if g.effectif)
     total_participant = total_membre + total_inscription_solo
     epm = Inscription_solo.objects.filter(Q(categorie='Epelle-Moi!') & Q(statut='valide'))
@@ -100,6 +102,7 @@ def dashboard(request):
     trico = Inscription_solo.objects.filter(Q(categorie='Tricotage') & Q(statut='valide'))
     total_trico = trico.count()
     context = {
+        'total_prestations_libres': total_prestations_libres,
         'total_inscription_solo': total_inscription_solo,
         'total_inscription_groupe':total_inscription_groupe,
         'total_participant':total_participant,
@@ -116,7 +119,6 @@ def dashboard(request):
         'total_trico':total_trico
     }
     return render(request, 'dashboard.html', context)
-
 
 
 # --- Participants solo ---
@@ -217,6 +219,49 @@ def export_participant_groupe_pdf(request):
     return response
 
 
+@login_required
+def export_prestations_libres_pdf(request):
+    libre = Inscription_libre.objects.filter(statut='valide')
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Helvetica", "B", 14)
+    pdf.cell(0, 10, f"Liste des prestations libres", ln=True, align="C")
+    pdf.ln(5)
+
+    pdf.set_font("Helvetica", "B", 10)
+    headers = ["N°", "Equipe/Nom", "Effectif", "Categorie", "Contact"]
+    widths = [15, 40, 25, 35, 35]
+    for h, w in zip(headers, widths):
+        pdf.cell(w, 8, h, border=1)
+    pdf.ln()
+
+    pdf.set_font("Helvetica", "", 9)
+    for i, l in enumerate(libre, start=1):
+        pdf.cell(widths[0], 8, str(i), border=1)
+        pdf.cell(widths[1], 8, str(l.nom_prenom), border=1)
+        pdf.cell(widths[2], 8, str(l.effectif), border=1)
+        pdf.cell(widths[3], 8, str(l.categorie), border=1)
+        pdf.cell(widths[4], 8, str(l.contact), border=1)
+        pdf.ln()
+
+    response = HttpResponse(bytes(pdf.output()), content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="prestations_libres.pdf"'
+    return response
+
+
+# --- Prestations libres ---
+@login_required
+def liste_prestations_libres(request):
+
+    libre = Inscription_libre.objects.filter(statut='valide')
+
+    return render(request, 'prestations_libres.html', {
+        'libre': libre,
+    })
+
+
+
 #vue pour les inscriptions en solo
 def inscription_solo(request):
     if request.method == 'POST':
@@ -240,7 +285,7 @@ def inscription_solo(request):
                 categorie=categorie,
                 statut='en_attente'
             )
-            messages.success(request, "Votre inscription a été enregistrée!")
+            messages.success(request, "Votre inscription a été enregistrée !")
         
         return redirect(request.META.get('HTTP_REFERER', '/')) 
 
@@ -270,17 +315,50 @@ def inscription_groupe(request):
                 categorie=categorie,
                 statut='en_attente'
             )
-            messages.success(request, "Votre inscription a été enregistrée!")
+            messages.success(request, "Votre inscription a été enregistrée !")
         
         return redirect(request.META.get('HTTP_REFERER', '/')) 
 
     return render(request, 'accueil.html')
 
+
+
+#vue pour prestation libre
+def inscription_libre(request):
+    if request.method == 'POST':
+        nom_prenom = request.POST.get('nom_prenom')
+        contact = request.POST.get('contact')
+        effectif = request.POST.get('effectif')
+        categorie = request.POST.get('categorie')
+
+        # Vérification de l'existence de l'inscription
+        existe_deja = Inscription_libre.objects.filter(nom_prenom=nom_prenom, categorie=categorie).exists()
+
+        if existe_deja:
+            messages.warning(request, "Vous êtes déjà inscrit(e) dans cette catégorie.")
+        else:
+            Inscription_libre.objects.create(
+                nom_prenom=nom_prenom,
+                contact=contact,
+                effectif=effectif,
+                categorie=categorie,
+                statut='en_attente'
+            )
+            messages.success(request, "Votre inscription a été enregistrée !")
+        
+        return redirect(request.META.get('HTTP_REFERER', '/')) 
+
+    return render(request, 'accueil.html')
+
+
+
+
 @login_required
 def liste_inscriptions(request):
     solo = Inscription_solo.objects.filter(Q(statut='en_attente') | Q(statut='rejete'))
     groupe = Inscription_groupe.objects.filter(Q(statut='en_attente') | Q(statut='rejete'))
-    return render(request, 'enregistrement.html', {'solo': solo, 'groupe': groupe})
+    libre = Inscription_libre.objects.filter(Q(statut='en_attente') | Q(statut='rejete'))
+    return render(request, 'enregistrement.html', {'solo': solo, 'groupe': groupe, 'libre': libre})
 
 @login_required
 def accepter_inscription_solo(request, id):
@@ -290,6 +368,14 @@ def accepter_inscription_solo(request, id):
     return redirect('liste_inscriptions')
 
 @login_required
+def rejeter_inscription_solo(request, id):
+    inscription_solo = get_object_or_404(Inscription_solo, id=id)
+    inscription_solo.statut = 'rejete'
+    inscription_solo.save()
+    return redirect('liste_inscriptions')
+    
+
+@login_required
 def accepter_inscription_groupe(request, id):
     inscription_groupe = get_object_or_404(Inscription_groupe, id=id)
     inscription_groupe.statut = 'valide'
@@ -297,15 +383,23 @@ def accepter_inscription_groupe(request, id):
     return redirect('liste_inscriptions')
 
 @login_required
-def rejeter_inscription_solo(request, id):
-    inscription_solo = get_object_or_404(Inscription_solo, id=id)
-    inscription_solo.statut = 'rejete'
-    inscription_solo.save()
-    return redirect('liste_inscriptions')
-    
-@login_required
 def rejeter_inscription_groupe(request, id):
     inscription_groupe = get_object_or_404(Inscription_groupe, id=id)
     inscription_groupe.statut = 'rejete'
     inscription_groupe.save()
+    return redirect('liste_inscriptions')
+
+
+@login_required
+def accepter_inscription_libre(request, id):
+    inscription_libre = get_object_or_404(Inscription_libre, id=id)
+    inscription_libre.statut = 'valide'
+    inscription_libre.save()
+    return redirect('liste_inscriptions')
+
+@login_required
+def rejeter_inscription_libre(request, id):
+    inscription_libre = get_object_or_404(Inscription_libre, id=id)
+    inscription_libre.statut = 'rejete'
+    inscription_libre.save()
     return redirect('liste_inscriptions')

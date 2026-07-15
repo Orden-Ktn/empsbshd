@@ -50,6 +50,12 @@
                                                 <span class="d-none d-sm-block">En groupe</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="#libre" data-toggle="tab" aria-expanded="false" class="nav-link">
+                                                <span class="d-block d-sm-none"><i class="mdi mdi-account-multiple-outline font-18"></i></span>
+                                                <span class="d-none d-sm-block">Prestation libre</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane show active" id="solo">
@@ -62,7 +68,6 @@
                                                         <th>Mouvement</th>
                                                         <th>Catégorie</th>
                                                         <th>Contact</th>
-                                                        <th>Statut</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -77,18 +82,10 @@
                                                         <td>{{ s.categorie }}</td>
                                                         <td>{{ s.contact }}</td>
                                                         <td>
-                                                            {% if s.statut == "en_attente" %}
-                                                                <span class="badge" style="background-color: orange; padding: 5%;">En attente</span>
-                                                            {% endif %}
-                                                            {% if s.statut == "rejete" %}
-                                                                <span class="badge" style="background-color: red; padding: 5%;">Rejeté</span>
-                                                            {% endif %}
-                                                        </td>
-                                                        <td>
                                                             
                                                             <form action="{% url 'accepter_inscription_solo' s.id %}" method="post" style="display:inline;">
                                                                 {% csrf_token %}
-                                                                <button type="submit" class="btn btn-success">
+                                                                <button type="submit" class="btn btn-success" style="background-color: green;">
                                                                     <i class="ion ion-md-checkmark-circle"></i> Valider
                                                                 </button>
                                                             </form>
@@ -123,7 +120,6 @@
                                                         <th>Effectif</th>
                                                         <th>Catégorie</th>
                                                         <th>Contact</th>
-                                                        <th>Statut</th>                                        
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -138,23 +134,65 @@
                                                         <td>{{ g.categorie }}</td>
                                                         <td>{{ g.contact }}</td>
                                                         <td>
-                                                            {% if g.statut == "en_attente" %}
-                                                                <span class="badge" style="background-color: orange; padding: 5%;">En attente</span>
-                                                            {% endif %}
-                                                            {% if s.statut == "rejete" %}
-                                                                <span class="badge" style="background-color: red; padding: 5%;">Rejeté</span>
-                                                            {% endif %}
-                                                        </td>
-                                                        <td>
                                                             
                                                             <form action="{% url 'accepter_inscription_groupe' g.id %}" method="post" style="display:inline;">
                                                                 {% csrf_token %}
-                                                                <button type="submit" class="btn btn-success">
+                                                                <button type="submit" class="btn btn-success" style="background-color: green;">
                                                                     <i class="ion ion-md-checkmark-circle"></i> Valider
                                                                 </button>
                                                             </form>                                                               
                                                           
                                                             <form action="{% url 'rejeter_inscription_groupe' g.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button class="btn btn-danger" type="submit">
+                                                                    <i class="ion ion-md-close"></i> Rejeter
+                                                                </button>
+                                                            </form>   
+                                                
+                                                        </td>
+                                                    </tr>
+                                                    {% empty %}
+                                                    <tr>
+                                                        <td colspan="8" style="text-align: center; color: red; font-style: italic;">Aucune inscription en attente
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                
+                                            </table>
+                                        </div>
+
+                                        <div class="tab-pane" id="libre">
+                                            <table  class="table table-bordered dt-responsive nowrap" style="color: black; border-collapse: collapse; border-spacing: 0; width: 100%;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>N°</th>
+                                                        <th>Nom</th>
+                                                        <th>Effectif</th>
+                                                        <th>Catégorie</th>
+                                                        <th>Contact</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                </thead>
+                
+                                                <tbody>
+                                                    {% for l in libre %}
+                                                    <tr>
+                                                        <td>{{ forloop.counter }}</td>
+                                                        <td>{{ l.nom_prenom }}</td>
+                                                        <td>{{ l.effectif }}</td>
+                                                        <td>{{ l.categorie }}</td>
+                                                        <td>{{ l.contact }}</td>
+                                                        <td>
+                                                            
+                                                            <form action="{% url 'accepter_inscription_libre' l.id %}" method="post" style="display:inline;">
+                                                                {% csrf_token %}
+                                                                <button type="submit" class="btn btn-success" style="background-color: green;">
+                                                                    <i class="ion ion-md-checkmark-circle"></i> Valider
+                                                                </button>
+                                                            </form>                                                               
+                                                          
+                                                            <form action="{% url 'rejeter_inscription_libre' l.id %}" method="post" style="display:inline;">
                                                                 {% csrf_token %}
                                                                 <button class="btn btn-danger" type="submit">
                                                                     <i class="ion ion-md-close"></i> Rejeter
