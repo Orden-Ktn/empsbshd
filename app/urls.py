@@ -10,8 +10,8 @@ urlpatterns = [
 
     path('', views.accueil, name='accueil'),
     path('connexion/', views.login_view, name='login_view'),
-    path('st2026/', views.st2026, name='st2026'),
-    path('fichiers/', views.fichiers, name='fichiers'),
+    # path('st2026/', views.st2026, name='st2026'),
+    # path('fichiers/', views.fichiers, name='fichiers'),
 
 
     path('inscription/', views.register, name='register'),
